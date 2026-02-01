@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apple Hero</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.navbar {
+  padding: 15px 40px;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  list-style: none;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1a1a1a, #000);
+  overflow: hidden;
+}
+
+.hero-content {
+  position: absolute;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  z-index: 5;
+}
+
+.hero-content h1 {
+  font-size: 56px;
+  font-weight: 600;
+}
+
+.hero-content p {
+  margin-top: 15px;
+  font-size: 20px;
+  color: #ccc;
+}
+
+.hero-content a {
+  display: inline-block;
+  margin-top: 20px;
+  color: #2997ff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.hero-images img {
+  position: absolute;
+  bottom: 0;
+}
+
+.ipad {
+  left: 5%;
+  width: 280px;
+}
+
+.iphone {
+  left: 28%;
+  width: 120px;
+}
+
+.watch {
+  left: 40%;
+  width: 90px;
+}
+
+.airpods {
+  left: 50%;
+  width: 80px;
+}
+
+.macbook {
+  right: 5%;
+  width: 420px;
+}
+
+.intro{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    text-align: center;
+    margin-inline: auto;
+}
+    
+.p3 {
+    grid-column: span 2 / span 2;
+}
+
+.p4 {
+    grid-column: span 2 / span 2;
+    grid-column-start: 4;
+}
+
+.p5 {
+    grid-column-start: 3;
+    grid-row-start: 4;
+}
+
+.p6 {
+    grid-column-start: 3;
+    grid-row-start: 5;
+}
+        
+
+
+  </style>
+
+</head>
+<body>
+
+<header class="navbar">
+  <ul>
+    <li>Store</li>
+    <li>Mac</li>
+    <li>iPad</li>
+    <li>iPhone</li>
+    <li>Watch</li>
+    <li>AirPods</li>
+    <li>TV & Home</li>
+    <li>Support</li>
+  </ul>
+</header>
+
+<section class="hero">
+  
+  <div class="hero-content">
+    <h1>Apple Shopping Event</h1>
+    <p>
+      From November 25 to 28, get an Apple Gift Card
+      when you buy an eligible product.
+    </p>
+    <a href="#">Get an early look</a>
+  </div>
+
+
+</section>
+<script src="main.js"></script>
+
+
+<div class="intro">
+  <div class="p3"><h1>Lorem Ipsum</h1></div>
+  <div class="p4"><h1>Lorem Ipsum</h1></div>
+  <div class="p5"><p>Starts On 30 September</p></div>
+  <div class="p6"><p>join now</p></div>
+</div>
+
+<div class="divv">
+  <h1>Iphone13</h1>
+  <p>so legacy</p>
+  <a href="">buy now!</a>
+</div>
+
+
+</body>
+</html>
