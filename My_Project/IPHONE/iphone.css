@@ -1,0 +1,407 @@
+
+@font-face {
+  font-family: "SFPRO";
+  src: url("SFPRODISPLAYBOLD.OTF") format("truetype");
+  font-weight: bold;
+  font-style: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  font-family: "SFPRO";
+
+  h1 {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 40px;
+    line-height: 44px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 26px;
+  }
+}
+
+section{
+  margin-top: 70px;
+}
+
+
+/* NavBar */
+nav {
+  background-color: #000000cc;
+  color: #fff;
+  width: 100%;
+  height: 44px;
+}
+
+.pages {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  ul {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+}
+.accessories-nav{
+  height: 129px;
+  width: 100%;
+  background: #FBFBFD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    .accs{  
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .orange{
+      color: orange;
+    }
+}
+
+
+
+/* iphone 14 article */
+article{
+  width: 100%;
+  max-width: 1530px;
+  margin-inline: auto;
+  text-align: center;
+margin-bottom: 10px;
+ 
+  h5{
+    font-size: 23px;
+    font-weight: 700;
+  }
+  #gradient{
+    font-size: 48px;
+    font-weight: 750;
+   background: linear-gradient(90deg, #5598DE 46%, #F65AAD 56%, #EC3D43 50%);
+ -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+ 
+  }
+
+  /* Classes */
+.hero-header{
+    width: 800px;
+    margin-inline: auto;
+  }
+  .head{
+    font-size: 17px;
+    color: #6E6E73;
+  }
+  
+    .img{
+    width: 600px;
+   margin-inline: auto;
+   margin-top: 70px;
+  }
+
+   .links{
+    margin-top: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    a{
+      color: #006bd7;
+    }
+    #buy{
+      width: 50px;
+      border-radius: 20px;
+      padding: 5px;
+      color: #fff;
+      background: #0071E3;
+    }
+  }
+
+
+/* Hero2 */
+#hero2{
+   width: 100%;
+  max-width: 1530px;
+  margin-inline: auto;
+  text-align: center;
+  background-color: black;
+h2{
+  background: linear-gradient(180deg, #931093 0%, #B344FF 100%);
+-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 48px;
+  font-weight: 700;
+}
+h5{
+  color: #fff;
+}
+p{
+  color: aliceblue;
+}
+.head{
+    font-size: 17px;
+    color: #6E6E73;
+  }
+  
+}
+
+
+/* Hero3 */
+#hero3{
+   width: 100%;
+  max-width: 1530px;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.413);
+  .hero3-header{
+    width: 630px;
+    height: 500px;
+    margin-right: 50px;
+    display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   row-gap: 10px;
+    h1{
+      background: linear-gradient(90deg, #1E3791 0%, #2948B1 40%, #3153C6 55%, #385FDA 60%);
+-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+    }
+    h1{
+      font-size: 48px;
+    }
+  }
+}
+
+
+/* Hero4 */
+#hero4{
+  width: 100%;
+  height: 814px;
+  background-image: url(./Container_imgs/de10401ca4014506c428a1f45002d44ea199786e.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  .hero4-header{
+    position: absolute;
+    top: 330px;
+    left: 270px;
+    text-align: start;;
+    color: #fff;
+  }
+  button{
+    background-color: #fff;
+    color: black;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 5px 10px 5px 10px;
+    font-size: 13px;
+    margin-top: 15px;
+  }
+}
+
+
+/*! Phone Cards */
+#half-section{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+  h1{
+    font-size: 48px;
+    margin-bottom: 200px;
+  }
+}
+
+
+.phone-1{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 70px;
+  border-bottom: 1px solid black;
+}
+
+.box{
+  width: 209.5px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  h4{
+    font-size: 14px;
+  }
+  p{
+    font-size: 14px;
+    color: #6E6E73;
+  }
+  h3{
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+
+.phone-cards{
+   width:1000px;
+   height: 100%;
+  padding:40px 16px;
+  background:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+
+}
+
+.phone-card{
+  padding: 0px 0px 10px 0px;
+  border-bottom: 1px solid black;
+  height: 100%;
+}
+
+.phone-img{
+  height:200px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  margin-bottom:10px;
+}
+
+.phone-img img{
+  width:100%;
+  max-width:200px;
+  height:auto;
+  display:block;
+}
+
+/* color dots */
+.swatches{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin:8px 0 10px;
+}
+
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:999px;
+  background:var(--c,#999);
+  border:1px solid rgba(0,0,0,.18);
+}
+
+/* text */
+.badge{
+  font-size:12px;
+  color:#bf4800;
+  margin-top:2px;
+  margin-bottom:6px;
+}
+
+.title{
+  font-size:20px;
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:6px;
+}
+
+.desc{
+  font-size:14px;
+  color:#6e6e73;
+  line-height:1.35;
+  min-height:38px; 
+  margin-bottom:12px;
+}
+
+.price{
+  font-size:13px;
+  color:#6e6e73;
+  margin-bottom:12px;
+}
+
+/* actions */
+.actions{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  
+  align-items:center;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:28px;
+  padding:0 14px;
+  border-radius:999px;
+  background:#0071e3;
+  color:#fff;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:600;
+}
+
+.btn:hover{filter:brightness(.95)}
+
+.link{
+  font-size:12px;
+  color:#0071e3;
+  text-decoration:none;
+}
+
+.link:hover{text-decoration:underline}
+
+.phone-about{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+text-align: center;
+}
+
+.box{
+  width: 209.5px;
+  height: 113.375px;
+}
+
+/* Containers */
+#container{
+  background-image: url("./Container_imgs/ba8b5575dc19e54a58774d200aef30b2f89eb562.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+background-size: cover;
+
+}
+
+.ios16{
+   background-image: url("./Container_imgs/10f8ec3bc031a6e25c67e102a5c7e809c76bbf5c.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+background-size: cover;
+}
+
+

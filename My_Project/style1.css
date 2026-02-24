@@ -484,13 +484,16 @@ margin-inline: auto;
   .text {
     font-size: 12px;
     line-height: 16px;
-    font-weight: 700;
+    font-weight: 400;
+    
   }
 
   .aboutus {
     color: #6e6e73;
-    margin-inline: 30px;
-
+    width: 1200px;
+    height: 457.5625px;
+    margin-inline: auto; 
+    
   }
 
   span {
@@ -518,7 +521,7 @@ span:hover {
 
   a {
     color: #424245;
-    font-size: 17px;
+    font-size: 12px;
     font-weight: 600;
     margin-bottom: 10px;
     display: flex;
@@ -526,7 +529,7 @@ span:hover {
   }
 
   p {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.8;
     font-style: bold;
   }
@@ -591,10 +594,12 @@ span:hover {
   p {
     color: #6e6e73;
     font-weight: 400;
+    font-size: 12px;
   }
 
   a {
     color: #0066cc;
+    font-size: 12px;
   }
 }
 
@@ -602,6 +607,7 @@ span:hover {
   width: 100%;
   display: flex;
   align-items: center;
+  flex-direction: row;
   gap: 60px;
 }
 

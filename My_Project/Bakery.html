@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="az" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AmberCrumb — Bakery Shop</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Fraunces", "serif"],
+            sans: ["Inter", "system-ui", "sans-serif"],
+          },
+          colors: {
+            bakery: {
+              ink:   "#0B0706",
+              deep:  "#130B08",
+              cocoa: "#241611",
+              crust: "#3A241B",
+              cream: "#F2E6D8",
+              latte: "#D8B899",
+              honey: "#C9732C",
+              ember: "#9A3B1A",
+              leaf:  "#3A6B4C"
+            }
+          },
+          boxShadow: {
+            glow: "0 14px 50px rgba(201, 115, 44, 0.18)",
+            soft: "0 16px 40px rgba(0,0,0,0.18)"
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* gentle grain */
+    .grain:before{
+      content:"";
+      position:absolute; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity:.18;
+      pointer-events:none;
+    }
+    /* reveal animation (JS adds .in) */
+    .reveal{ opacity:0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in{ opacity:1; transform: translateY(0); }
+    /* hide scrollbar jump on mobile menu open */
+    body.menu-open{ overflow:hidden; }
+  </style>
+</head>
+
+<body class="bg-bakery-cream text-bakery-cocoa font-sans selection:bg-bakery-honey/25 selection:text-bakery-ink
+             dark:bg-bakery-ink dark:text-bakery-cream">
+
+  <!-- BACKGROUND: lamp glows + vignette + grain -->
+  <div class="relative min-h-screen overflow-hidden grain">
+    <!-- warm glows -->
+    <div class="pointer-events-none absolute -top-28 left-1/2 h-[620px] w-[620px] -translate-x-1/2 rounded-full blur-3xl opacity-50
+                bg-[radial-gradient(circle_at_center,rgba(201,115,44,0.32),rgba(201,115,44,0)_68%)]"></div>
+    <div class="pointer-events-none absolute top-44 -left-28 h-[520px] w-[520px] rounded-full blur-3xl opacity-45
+                bg-[radial-gradient(circle_at_center,rgba(154,59,26,0.30),rgba(154,59,26,0)_68%)]"></div>
+    <div class="pointer-events-none absolute bottom-0 right-0 h-[620px] w-[620px] rounded-full blur-3xl opacity-30
+                bg-[radial-gradient(circle_at_center,rgba(216,184,153,0.22),rgba(216,184,153,0)_70%)]"></div>
+
+    <!-- subtle vignette -->
+    <div class="pointer-events-none absolute inset-0
+                bg-[radial-gradient(circle_at_top,rgba(0,0,0,0)_0%,rgba(0,0,0,0.12)_55%,rgba(0,0,0,0.28)_100%)]
+                dark:bg-[radial-gradient(circle_at_top,rgba(0,0,0,0)_0%,rgba(0,0,0,0.25)_55%,rgba(0,0,0,0.55)_100%)]"></div>
+
+    <!-- TOP STRIP -->
+    <div class="relative border-b border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4 py-2 flex items-center justify-between text-xs">
+        <p class="text-black/60 dark:text-white/60">
+          Today’s oven: <span class="font-medium text-bakery-ember dark:text-bakery-honey">Cinnamon rolls</span> • Fresh every 30 mins
+        </p>
+        <div class="hidden sm:flex items-center gap-4 text-black/60 dark:text-white/60">
+          <a class="hover:text-bakery-cocoa dark:hover:text-bakery-cream" href="#locations">Locations</a>
+          <span class="opacity-40">•</span>
+          <a class="hover:text-bakery-cocoa dark:hover:text-bakery-cream" href="#order">Pre-order</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- STICKY NAVBAR -->
+    <header id="header"
+      class="relative sticky top-0 z-50 backdrop-blur border-b border-black/10 dark:border-white/10
+             bg-bakery-cream/75 dark:bg-bakery-ink/60">
+      <div class="max-w-[1320px] mx-auto px-4 h-16 flex items-center justify-between">
+        <!-- Brand -->
+        <a href="#home" class="flex items-center gap-3">
+          <span class="grid place-items-center h-10 w-10 rounded-2xl border border-black/10 dark:border-white/10
+                       bg-white/50 dark:bg-white/10">
+            <span class="font-display text-lg tracking-tight">🍞</span>
+          </span>
+          <div class="leading-tight">
+            <p class="font-display text-lg tracking-tight">AmberCrumb</p>
+            <p class="text-[11px] -mt-0.5 text-black/55 dark:text-white/55">bakery • breads • sweet things</p>
+          </div>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden lg:flex items-center gap-7 text-sm">
+          <a data-nav href="#menu" class="navlink text-black/65 dark:text-white/65 hover:text-bakery-cocoa dark:hover:text-bakery-cream">Menu</a>
+          <a data-nav href="#specials" class="navlink text-black/65 dark:text-white/65 hover:text-bakery-cocoa dark:hover:text-bakery-cream">Specials</a>
+          <a data-nav href="#story" class="navlink text-black/65 dark:text-white/65 hover:text-bakery-cocoa dark:hover:text-bakery-cream">Our Story</a>
+          <a data-nav href="#gallery" class="navlink text-black/65 dark:text-white/65 hover:text-bakery-cocoa dark:hover:text-bakery-cream">Gallery</a>
+          <a data-nav href="#reviews" class="navlink text-black/65 dark:text-white/65 hover:text-bakery-cocoa dark:hover:text-bakery-cream">Reviews</a>
+          <a data-nav href="#locations" class="navlink text-black/65 dark:text-white/65 hover:text-bakery-cocoa dark:hover:text-bakery-cream">Locations</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <!-- Theme toggle -->
+          <button id="themeBtn"
+            class="px-3 py-2 rounded-2xl border border-black/10 dark:border-white/10
+                   bg-white/50 dark:bg-white/10 text-sm
+                   hover:bg-white/70 dark:hover:bg-white/15">
+            <span id="themeIcon">🌙</span>
+          </button>
+
+          <!-- Cart (demo) -->
+          <button id="cartBtn"
+            class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-2xl
+                   bg-bakery-honey/15 border border-bakery-honey/25 text-bakery-cocoa dark:text-bakery-cream text-sm
+                   hover:bg-bakery-honey/20 shadow-glow">
+            <span class="h-2 w-2 rounded-full bg-bakery-honey shadow-[0_0_18px_rgba(201,115,44,0.7)]"></span>
+            Cart <span id="cartCount" class="ml-1 font-medium">(0)</span>
+          </button>
+
+          <!-- Mobile menu -->
+          <button id="menuBtn"
+            class="lg:hidden px-3 py-2 rounded-2xl border border-black/10 dark:border-white/10
+                   bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+            Menu
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile panel -->
+      <div id="mobilePanel" class="lg:hidden hidden border-t border-black/10 dark:border-white/10 bg-bakery-cream/90 dark:bg-bakery-ink/85 backdrop-blur">
+        <div class="max-w-[1320px] mx-auto px-4 py-4 grid gap-2 text-sm">
+          <a class="py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10" href="#menu">Menu</a>
+          <a class="py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10" href="#specials">Specials</a>
+          <a class="py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10" href="#story">Our Story</a>
+          <a class="py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10" href="#gallery">Gallery</a>
+          <a class="py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10" href="#reviews">Reviews</a>
+          <a class="py-2 px-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/10" href="#locations">Locations</a>
+          <a class="mt-2 py-3 px-3 rounded-2xl bg-bakery-honey text-bakery-ink font-medium text-center" href="#order">Pre-order (pickup)</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="relative">
+      <div class="max-w-[1320px] mx-auto px-4 py-16 md:py-20">
+        <div class="grid grid-cols-12 gap-10 items-center">
+          <div class="col-span-12 lg:col-span-6 reveal">
+            <p class="text-xs tracking-[0.24em] uppercase text-black/55 dark:text-white/55">
+              small-batch bakery • warm lights • real butter
+            </p>
+
+            <h1 class="mt-4 font-display text-4xl md:text-5xl xl:text-6xl leading-[1.02]">
+              Fresh bread that smells like
+              <span class="text-bakery-ember dark:text-bakery-honey">home</span>.
+            </h1>
+
+            <p class="mt-5 text-black/65 dark:text-white/65 max-w-prose">
+              Səhər kruassan, günorta focaccia, axşam isə bal-limon tart.
+              Hər şey sakit, səliqəli və “insan əli” kimi.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#menu"
+                 class="px-5 py-3 rounded-2xl bg-bakery-honey text-bakery-ink font-medium text-sm
+                        hover:brightness-110 shadow-glow">
+                Browse menu
+              </a>
+              <a href="#order"
+                 class="px-5 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm
+                        hover:bg-white/70 dark:hover:bg-white/15">
+                Pre-order pickup
+              </a>
+              <button id="heroToast"
+                 class="px-5 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 text-sm
+                        hover:bg-white/60 dark:hover:bg-white/15">
+                Today’s bake note
+              </button>
+            </div>
+
+            <!-- quick badges -->
+            <div class="mt-10 grid grid-cols-12 gap-4 max-w-xl">
+              <div class="col-span-6 md:col-span-4 rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-4 hover:shadow-soft transition">
+                <p class="font-display text-2xl">7:30</p>
+                <p class="text-xs text-black/55 dark:text-white/55">First batch</p>
+              </div>
+              <div class="col-span-6 md:col-span-4 rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-4 hover:shadow-soft transition">
+                <p class="font-display text-2xl">12+</p>
+                <p class="text-xs text-black/55 dark:text-white/55">Daily items</p>
+              </div>
+              <div class="col-span-12 md:col-span-4 rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-4 hover:shadow-soft transition">
+                <p class="font-display text-2xl">4.9</p>
+                <p class="text-xs text-black/55 dark:text-white/55">Local reviews</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero card -->
+          <div class="col-span-12 lg:col-span-6 reveal">
+            <div class="relative rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-4 overflow-hidden">
+              <div class="pointer-events-none absolute inset-0 rounded-[28px]
+                bg-[radial-gradient(circle_at_30%_10%,rgba(201,115,44,0.18),rgba(0,0,0,0)_55%)]"></div>
+
+              <div class="aspect-[16/11] rounded-3xl border border-black/10 dark:border-white/10 bg-white/55 dark:bg-bakery-deep grid place-items-center overflow-hidden">
+                <div class="text-center px-6">
+                  <p class="text-sm text-black/55 dark:text-white/55">Hero image / short video</p>
+                  <p class="mt-2 text-xs text-black/45 dark:text-white/45">buraya məhsul şəkli qoy (croissant / sourdough)</p>
+                </div>
+              </div>
+
+              <div class="mt-4 grid grid-cols-12 gap-3">
+                <div class="col-span-12 md:col-span-7 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 p-4">
+                  <p class="text-xs text-black/55 dark:text-white/55">Next batch</p>
+                  <p class="mt-1 font-medium">Butter croissants — <span class="text-bakery-ember dark:text-bakery-honey">in 18 minutes</span></p>
+                </div>
+                <div class="col-span-12 md:col-span-5 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 p-4">
+                  <p class="text-xs text-black/55 dark:text-white/55">Pickup</p>
+                  <p class="mt-1 font-medium">Ready in ~20–35 min</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="relative py-16 border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 reveal">
+          <div>
+            <h2 class="font-display text-3xl md:text-4xl">Menu</h2>
+            <p class="mt-2 text-black/65 dark:text-white/65">Breads, pastries, cakes. Simple, clean, honest.</p>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button data-filter="all" class="filterBtn px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+              All
+            </button>
+            <button data-filter="bread" class="filterBtn px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+              Bread
+            </button>
+            <button data-filter="pastry" class="filterBtn px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+              Pastry
+            </button>
+            <button data-filter="cake" class="filterBtn px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+              Cake
+            </button>
+          </div>
+        </div>
+
+        <!-- Menu grid -->
+        <div id="menuGrid" class="mt-10 grid grid-cols-12 gap-6">
+          <!-- ITEM TEMPLATE: hover, add-to-cart -->
+          <article data-cat="bread" class="menuItem col-span-12 md:col-span-6 xl:col-span-4 reveal">
+            <div class="group rounded-[28px] border border-black/10 dark:border-white/10 bg-white/45 dark:bg-white/10 overflow-hidden hover:shadow-soft transition">
+              <div class="relative aspect-[16/10] bg-white/60 dark:bg-bakery-deep border-b border-black/10 dark:border-white/10">
+                <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                  bg-[radial-gradient(circle_at_40%_20%,rgba(201,115,44,0.18),rgba(0,0,0,0)_60%)]"></div>
+                <div class="h-full grid place-items-center text-black/50 dark:text-white/50 text-sm">Image</div>
+
+                <span class="absolute top-3 left-3 text-xs px-3 py-1 rounded-full
+                             bg-bakery-honey/20 border border-bakery-honey/25 text-bakery-cocoa dark:text-bakery-cream">
+                  daily
+                </span>
+              </div>
+
+              <div class="p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="font-medium text-lg">Sourdough Loaf</h3>
+                    <p class="mt-1 text-sm text-black/60 dark:text-white/60">crusty • tangy • 24h ferment</p>
+                  </div>
+                  <p class="font-display text-xl text-bakery-ember dark:text-bakery-honey">$6</p>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <button class="addBtn px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink text-sm font-medium hover:brightness-110 shadow-glow"
+                          data-name="Sourdough Loaf" data-price="6">
+                    Add
+                  </button>
+                  <button class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15"
+                          data-quick="Sourdough Loaf">
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article data-cat="pastry" class="menuItem col-span-12 md:col-span-6 xl:col-span-4 reveal">
+            <div class="group rounded-[28px] border border-black/10 dark:border-white/10 bg-white/45 dark:bg-white/10 overflow-hidden hover:shadow-soft transition">
+              <div class="relative aspect-[16/10] bg-white/60 dark:bg-bakery-deep border-b border-black/10 dark:border-white/10">
+                <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                  bg-[radial-gradient(circle_at_60%_10%,rgba(154,59,26,0.18),rgba(0,0,0,0)_60%)]"></div>
+                <div class="h-full grid place-items-center text-black/50 dark:text-white/50 text-sm">Image</div>
+                <span class="absolute top-3 left-3 text-xs px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10">
+                  best seller
+                </span>
+              </div>
+
+              <div class="p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="font-medium text-lg">Butter Croissant</h3>
+                    <p class="mt-1 text-sm text-black/60 dark:text-white/60">flaky • warm butter • airy</p>
+                  </div>
+                  <p class="font-display text-xl text-bakery-ember dark:text-bakery-honey">$3</p>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <button class="addBtn px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink text-sm font-medium hover:brightness-110 shadow-glow"
+                          data-name="Butter Croissant" data-price="3">
+                    Add
+                  </button>
+                  <button class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15"
+                          data-quick="Butter Croissant">
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article data-cat="cake" class="menuItem col-span-12 md:col-span-6 xl:col-span-4 reveal">
+            <div class="group rounded-[28px] border border-black/10 dark:border-white/10 bg-white/45 dark:bg-white/10 overflow-hidden hover:shadow-soft transition">
+              <div class="relative aspect-[16/10] bg-white/60 dark:bg-bakery-deep border-b border-black/10 dark:border-white/10">
+                <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                  bg-[radial-gradient(circle_at_45%_20%,rgba(201,115,44,0.16),rgba(0,0,0,0)_60%)]"></div>
+                <div class="h-full grid place-items-center text-black/50 dark:text-white/50 text-sm">Image</div>
+                <span class="absolute top-3 left-3 text-xs px-3 py-1 rounded-full bg-bakery-leaf/15 border border-bakery-leaf/20 text-bakery-cocoa dark:text-bakery-cream">
+                  seasonal
+                </span>
+              </div>
+
+              <div class="p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="font-medium text-lg">Honey Citrus Tart</h3>
+                    <p class="mt-1 text-sm text-black/60 dark:text-white/60">bright • creamy • thin crust</p>
+                  </div>
+                  <p class="font-display text-xl text-bakery-ember dark:text-bakery-honey">$5</p>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <button class="addBtn px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink text-sm font-medium hover:brightness-110 shadow-glow"
+                          data-name="Honey Citrus Tart" data-price="5">
+                    Add
+                  </button>
+                  <button class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15"
+                          data-quick="Honey Citrus Tart">
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- add a few more so it feels “human-built” -->
+          <article data-cat="bread" class="menuItem col-span-12 md:col-span-6 xl:col-span-4 reveal">
+            <div class="group rounded-[28px] border border-black/10 dark:border-white/10 bg-white/45 dark:bg-white/10 overflow-hidden hover:shadow-soft transition">
+              <div class="relative aspect-[16/10] bg-white/60 dark:bg-bakery-deep border-b border-black/10 dark:border-white/10">
+                <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                  bg-[radial-gradient(circle_at_35%_15%,rgba(154,59,26,0.16),rgba(0,0,0,0)_60%)]"></div>
+                <div class="h-full grid place-items-center text-black/50 dark:text-white/50 text-sm">Image</div>
+              </div>
+
+              <div class="p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="font-medium text-lg">Focaccia</h3>
+                    <p class="mt-1 text-sm text-black/60 dark:text-white/60">olive oil • rosemary • soft inside</p>
+                  </div>
+                  <p class="font-display text-xl text-bakery-ember dark:text-bakery-honey">$4</p>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <button class="addBtn px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink text-sm font-medium hover:brightness-110 shadow-glow"
+                          data-name="Focaccia" data-price="4">
+                    Add
+                  </button>
+                  <button class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15"
+                          data-quick="Focaccia">
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article data-cat="pastry" class="menuItem col-span-12 md:col-span-6 xl:col-span-4 reveal">
+            <div class="group rounded-[28px] border border-black/10 dark:border-white/10 bg-white/45 dark:bg-white/10 overflow-hidden hover:shadow-soft transition">
+              <div class="relative aspect-[16/10] bg-white/60 dark:bg-bakery-deep border-b border-black/10 dark:border-white/10">
+                <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                  bg-[radial-gradient(circle_at_62%_18%,rgba(201,115,44,0.16),rgba(0,0,0,0)_60%)]"></div>
+                <div class="h-full grid place-items-center text-black/50 dark:text-white/50 text-sm">Image</div>
+              </div>
+
+              <div class="p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="font-medium text-lg">Cinnamon Roll</h3>
+                    <p class="mt-1 text-sm text-black/60 dark:text-white/60">soft • cinnamon • glaze</p>
+                  </div>
+                  <p class="font-display text-xl text-bakery-ember dark:text-bakery-honey">$4</p>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <button class="addBtn px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink text-sm font-medium hover:brightness-110 shadow-glow"
+                          data-name="Cinnamon Roll" data-price="4">
+                    Add
+                  </button>
+                  <button class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15"
+                          data-quick="Cinnamon Roll">
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article data-cat="cake" class="menuItem col-span-12 md:col-span-6 xl:col-span-4 reveal">
+            <div class="group rounded-[28px] border border-black/10 dark:border-white/10 bg-white/45 dark:bg-white/10 overflow-hidden hover:shadow-soft transition">
+              <div class="relative aspect-[16/10] bg-white/60 dark:bg-bakery-deep border-b border-black/10 dark:border-white/10">
+                <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition
+                  bg-[radial-gradient(circle_at_45%_18%,rgba(154,59,26,0.14),rgba(0,0,0,0)_60%)]"></div>
+                <div class="h-full grid place-items-center text-black/50 dark:text-white/50 text-sm">Image</div>
+              </div>
+
+              <div class="p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="font-medium text-lg">Chocolate Slice</h3>
+                    <p class="mt-1 text-sm text-black/60 dark:text-white/60">rich • cocoa • not too sweet</p>
+                  </div>
+                  <p class="font-display text-xl text-bakery-ember dark:text-bakery-honey">$4</p>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <button class="addBtn px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink text-sm font-medium hover:brightness-110 shadow-glow"
+                          data-name="Chocolate Slice" data-price="4">
+                    Add
+                  </button>
+                  <button class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15"
+                          data-quick="Chocolate Slice">
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPECIALS -->
+    <section id="specials" class="py-16 border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="grid grid-cols-12 gap-8 items-center reveal">
+          <div class="col-span-12 lg:col-span-5">
+            <h2 class="font-display text-3xl md:text-4xl">This week’s specials</h2>
+            <p class="mt-2 text-black/65 dark:text-white/65">
+              Həftəlik menyu dəyişir. Bu hissəni canlı saxlamaq saytı “real” edir.
+            </p>
+
+            <div class="mt-6 space-y-3">
+              <div class="rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-4 hover:shadow-soft transition">
+                <p class="font-medium">Salted Honey Brioche</p>
+                <p class="text-sm text-black/60 dark:text-white/60">soft crumb • shiny crust • limited</p>
+              </div>
+              <div class="rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-4 hover:shadow-soft transition">
+                <p class="font-medium">Orange Cardamom Bun</p>
+                <p class="text-sm text-black/60 dark:text-white/60">zesty • warm spice • sweet</p>
+              </div>
+              <div class="rounded-3xl border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-4 hover:shadow-soft transition">
+                <p class="font-medium">Mini Lemon Tart</p>
+                <p class="text-sm text-black/60 dark:text-white/60">bright • creamy • crisp shell</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-12 lg:col-span-7">
+            <div class="relative rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 overflow-hidden hover:shadow-soft transition">
+              <div class="pointer-events-none absolute -top-28 -right-28 h-80 w-80 rounded-full blur-3xl
+                          bg-[radial-gradient(circle_at_center,rgba(201,115,44,0.16),rgba(201,115,44,0)_70%)]"></div>
+
+              <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 md:col-span-6 rounded-3xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-bakery-deep p-5">
+                  <p class="text-xs text-black/55 dark:text-white/55">Pickup window</p>
+                  <p class="mt-2 font-medium">Today: 10:30–18:00</p>
+                  <p class="mt-2 text-sm text-black/60 dark:text-white/60">Order now, choose time, skip line.</p>
+                </div>
+                <div class="col-span-12 md:col-span-6 rounded-3xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-bakery-deep p-5">
+                  <p class="text-xs text-black/55 dark:text-white/55">Baker note</p>
+                  <p class="mt-2 font-medium">“If you like crust—go sourdough.”</p>
+                  <p class="mt-2 text-sm text-black/60 dark:text-white/60">Simple advice, but it works :)</p>
+                </div>
+                <div class="col-span-12 rounded-3xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-bakery-deep p-5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+                  <p class="text-sm text-black/60 dark:text-white/60">
+                    Want weekly specials by email?
+                  </p>
+                  <div class="flex gap-2 w-full sm:w-auto">
+                    <input id="specialEmail" class="flex-1 sm:w-64 px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 outline-none
+                                                   focus:ring-2 focus:ring-bakery-honey/40"
+                           placeholder="Email" />
+                    <button id="specialJoin" class="px-4 py-3 rounded-2xl bg-bakery-honey text-bakery-ink font-medium hover:brightness-110">
+                      Join
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section id="story" class="py-16 border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="grid grid-cols-12 gap-10 reveal">
+          <div class="col-span-12 lg:col-span-5">
+            <h2 class="font-display text-3xl md:text-4xl">Our story</h2>
+            <p class="mt-2 text-black/65 dark:text-white/65">
+              “AI yazısı” kimi yox: qısa, real, insan danışığı kimi.
+            </p>
+            <div class="mt-6 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6">
+              <p class="text-sm leading-relaxed text-black/65 dark:text-white/65">
+                AmberCrumb 2022-də balaca bir sobayla başladı. İlk günlər hər şey az idi:
+                un, yağ, iki tepsi… amma iyi var idi. İndi də eyni prinsip: sadə resept, təmiz dad.
+              </p>
+              <p class="mt-4 text-sm leading-relaxed text-black/65 dark:text-white/65">
+                Biz “çox şirin” yox, balans sevərik. Bir də, kruassan isti olanda hər şey düzəlir.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-span-12 lg:col-span-7 grid grid-cols-12 gap-4">
+            <div class="col-span-12 sm:col-span-6 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 hover:shadow-soft transition">
+              <p class="text-xs tracking-[0.22em] uppercase text-black/55 dark:text-white/55">Step 1</p>
+              <p class="mt-2 font-medium text-lg">Slow ferment</p>
+              <p class="mt-2 text-sm text-black/60 dark:text-white/60">Taste comes from time, not tricks.</p>
+            </div>
+            <div class="col-span-12 sm:col-span-6 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 hover:shadow-soft transition">
+              <p class="text-xs tracking-[0.22em] uppercase text-black/55 dark:text-white/55">Step 2</p>
+              <p class="mt-2 font-medium text-lg">Real butter</p>
+              <p class="mt-2 text-sm text-black/60 dark:text-white/60">Flaky layers, honest aroma.</p>
+            </div>
+            <div class="col-span-12 sm:col-span-6 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 hover:shadow-soft transition">
+              <p class="text-xs tracking-[0.22em] uppercase text-black/55 dark:text-white/55">Step 3</p>
+              <p class="mt-2 font-medium text-lg">Small batches</p>
+              <p class="mt-2 text-sm text-black/60 dark:text-white/60">Freshness over quantity.</p>
+            </div>
+            <div class="col-span-12 sm:col-span-6 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 hover:shadow-soft transition">
+              <p class="text-xs tracking-[0.22em] uppercase text-black/55 dark:text-white/55">Step 4</p>
+              <p class="mt-2 font-medium text-lg">Warm service</p>
+              <p class="mt-2 text-sm text-black/60 dark:text-white/60">No rush, just good bread.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="py-16 border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="flex items-end justify-between gap-6 reveal">
+          <div>
+            <h2 class="font-display text-3xl md:text-4xl">Gallery</h2>
+            <p class="mt-2 text-black/65 dark:text-white/65">Bura şəkillə “canlanır”. İndi placeholder qalsın.</p>
+          </div>
+          <button id="shuffleGallery"
+            class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+            Shuffle
+          </button>
+        </div>
+
+        <div id="galleryGrid" class="mt-10 grid grid-cols-12 gap-4">
+          <!-- tiles -->
+          <div class="gTile col-span-12 md:col-span-7 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 aspect-[16/10] grid place-items-center reveal">Photo A</div>
+          <div class="gTile col-span-12 md:col-span-5 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 aspect-[16/10] grid place-items-center reveal">Photo B</div>
+          <div class="gTile col-span-12 md:col-span-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 aspect-[16/10] grid place-items-center reveal">Photo C</div>
+          <div class="gTile col-span-12 md:col-span-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 aspect-[16/10] grid place-items-center reveal">Photo D</div>
+          <div class="gTile col-span-12 md:col-span-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 aspect-[16/10] grid place-items-center reveal">Photo E</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews" class="py-16 border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="grid grid-cols-12 gap-10 items-center reveal">
+          <div class="col-span-12 lg:col-span-5">
+            <h2 class="font-display text-3xl md:text-4xl">Reviews</h2>
+            <p class="mt-2 text-black/65 dark:text-white/65">
+              Kiçik detallar “real site” hissi verir: slider, dots, auto-play.
+            </p>
+
+            <div class="mt-6 flex gap-2">
+              <button id="prevReview" class="px-4 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+                Prev
+              </button>
+              <button id="nextReview" class="px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink font-medium text-sm hover:brightness-110">
+                Next
+              </button>
+            </div>
+          </div>
+
+          <div class="col-span-12 lg:col-span-7">
+            <div class="relative rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 overflow-hidden">
+              <div class="pointer-events-none absolute -top-28 -left-28 h-80 w-80 rounded-full blur-3xl
+                          bg-[radial-gradient(circle_at_center,rgba(201,115,44,0.14),rgba(201,115,44,0)_70%)]"></div>
+
+              <div id="reviewCard" class="min-h-[150px]">
+                <!-- JS fills -->
+              </div>
+
+              <div id="reviewDots" class="mt-5 flex gap-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section id="locations" class="py-16 border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 reveal">
+          <div>
+            <h2 class="font-display text-3xl md:text-4xl">Locations</h2>
+            <p class="mt-2 text-black/65 dark:text-white/65">Adres, saat, xəritə — hamısı bir yerdə.</p>
+          </div>
+          <a href="#order" class="px-5 py-3 rounded-2xl bg-bakery-honey text-bakery-ink font-medium text-sm hover:brightness-110 shadow-glow">
+            Pre-order pickup
+          </a>
+        </div>
+
+        <div class="mt-10 grid grid-cols-12 gap-6">
+          <div class="col-span-12 lg:col-span-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 hover:shadow-soft transition reveal">
+            <p class="font-medium text-lg">Downtown</p>
+            <p class="mt-1 text-sm text-black/60 dark:text-white/60">Mon–Sun • 08:00–22:00</p>
+            <p class="mt-3 text-sm text-black/70 dark:text-white/70">Baku, example street 12</p>
+          </div>
+          <div class="col-span-12 lg:col-span-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 hover:shadow-soft transition reveal">
+            <p class="font-medium text-lg">Seaside</p>
+            <p class="mt-1 text-sm text-black/60 dark:text-white/60">Mon–Sun • 09:00–23:00</p>
+            <p class="mt-3 text-sm text-black/70 dark:text-white/70">Baku, example avenue 7</p>
+          </div>
+          <div class="col-span-12 lg:col-span-4 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 hover:shadow-soft transition reveal">
+            <p class="font-medium text-lg">Uptown</p>
+            <p class="mt-1 text-sm text-black/60 dark:text-white/60">Mon–Fri • 08:00–20:00</p>
+            <p class="mt-3 text-sm text-black/70 dark:text-white/70">Baku, example road 5</p>
+          </div>
+
+          <div class="col-span-12 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 aspect-[21/9] grid place-items-center reveal">
+            Map embed placeholder
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDER FORM -->
+    <section id="order" class="py-16 border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4">
+        <div class="grid grid-cols-12 gap-10 items-start reveal">
+          <div class="col-span-12 lg:col-span-5">
+            <h2 class="font-display text-3xl md:text-4xl">Pre-order (pickup)</h2>
+            <p class="mt-2 text-black/65 dark:text-white/65">
+              “Aktiv sayt” hissi üçün form + toast + localStorage cart.
+            </p>
+
+            <div class="mt-6 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6">
+              <p class="text-sm text-black/65 dark:text-white/65">
+                Tip: Form submit edəndə real backend yoxdursa, “demo confirmation” göstərmək yetər.
+              </p>
+            </div>
+          </div>
+
+          <form id="orderForm" class="col-span-12 lg:col-span-7 rounded-[28px] border border-black/10 dark:border-white/10 bg-white/40 dark:bg-white/10 p-6 space-y-4">
+            <div class="grid grid-cols-12 gap-4">
+              <div class="col-span-12 sm:col-span-6">
+                <label class="text-sm text-black/70 dark:text-white/70">Name</label>
+                <input required name="name"
+                  class="mt-2 w-full px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 outline-none
+                         focus:ring-2 focus:ring-bakery-honey/40"
+                  placeholder="Adın" />
+              </div>
+              <div class="col-span-12 sm:col-span-6">
+                <label class="text-sm text-black/70 dark:text-white/70">Phone</label>
+                <input required name="phone"
+                  class="mt-2 w-full px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 outline-none
+                         focus:ring-2 focus:ring-bakery-honey/40"
+                  placeholder="+994 ..." />
+              </div>
+              <div class="col-span-12 sm:col-span-6">
+                <label class="text-sm text-black/70 dark:text-white/70">Pickup location</label>
+                <select name="location"
+                  class="mt-2 w-full px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 outline-none
+                         focus:ring-2 focus:ring-bakery-honey/40">
+                  <option>Downtown</option>
+                  <option>Seaside</option>
+                  <option>Uptown</option>
+                </select>
+              </div>
+              <div class="col-span-12 sm:col-span-6">
+                <label class="text-sm text-black/70 dark:text-white/70">Pickup time</label>
+                <input name="time" type="time"
+                  class="mt-2 w-full px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 outline-none
+                         focus:ring-2 focus:ring-bakery-honey/40" />
+              </div>
+              <div class="col-span-12">
+                <label class="text-sm text-black/70 dark:text-white/70">Notes</label>
+                <textarea name="notes" rows="4"
+                  class="mt-2 w-full px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 outline-none
+                         focus:ring-2 focus:ring-bakery-honey/40"
+                  placeholder="Məs: 2 croissant + 1 cinnamon roll, az glaze..."></textarea>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+              <p class="text-sm text-black/60 dark:text-white/60">
+                Cart items: <span id="cartItemsLine" class="font-medium">0</span>
+              </p>
+              <button type="submit"
+                class="px-5 py-3 rounded-2xl bg-bakery-honey text-bakery-ink font-medium hover:brightness-110 shadow-glow">
+                Confirm (demo)
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-black/10 dark:border-white/10">
+      <div class="max-w-[1320px] mx-auto px-4 py-10 grid grid-cols-12 gap-8">
+        <div class="col-span-12 lg:col-span-4">
+          <p class="font-display text-lg">AmberCrumb</p>
+          <p class="mt-2 text-sm text-black/60 dark:text-white/60">
+            Warm lights, fresh bread, calm vibes.
+          </p>
+        </div>
+
+        <div class="col-span-6 lg:col-span-2">
+          <p class="text-sm font-medium">Explore</p>
+          <ul class="mt-3 space-y-2 text-sm text-black/60 dark:text-white/60">
+            <li><a class="hover:text-bakery-cocoa dark:hover:text-bakery-cream" href="#menu">Menu</a></li>
+            <li><a class="hover:text-bakery-cocoa dark:hover:text-bakery-cream" href="#specials">Specials</a></li>
+            <li><a class="hover:text-bakery-cocoa dark:hover:text-bakery-cream" href="#story">Story</a></li>
+          </ul>
+        </div>
+
+        <div class="col-span-6 lg:col-span-2">
+          <p class="text-sm font-medium">Visit</p>
+          <ul class="mt-3 space-y-2 text-sm text-black/60 dark:text-white/60">
+            <li><a class="hover:text-bakery-cocoa dark:hover:text-bakery-cream" href="#locations">Locations</a></li>
+            <li><a class="hover:text-bakery-cocoa dark:hover:text-bakery-cream" href="#order">Pre-order</a></li>
+          </ul>
+        </div>
+
+        <div class="col-span-12 lg:col-span-4">
+          <p class="text-sm font-medium">Get weekly specials</p>
+          <div class="mt-3 flex gap-2">
+            <input class="flex-1 px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 outline-none
+                          focus:ring-2 focus:ring-bakery-honey/40"
+                   placeholder="Email" />
+            <button class="px-4 py-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/10 text-sm hover:bg-white/70 dark:hover:bg-white/15">
+              Join
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-[1320px] mx-auto px-4 py-6 text-xs text-black/45 dark:text-white/45 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+        <p>© 2026 AmberCrumb Bakery</p>
+        <p>Built with Tailwind + a pinch of JS</p>
+      </div>
+    </footer>
+
+    <!-- TOAST -->
+    <div id="toast"
+      class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] hidden
+             max-w-[92vw] sm:max-w-md rounded-2xl border border-black/10 dark:border-white/10
+             bg-white/80 dark:bg-bakery-deep/80 backdrop-blur px-4 py-3 shadow-soft">
+      <p id="toastText" class="text-sm text-black/75 dark:text-white/75"></p>
+    </div>
+
+    <!-- QUICK MODAL -->
+    <div id="modal" class="fixed inset-0 z-[70] hidden">
+      <div id="modalBg" class="absolute inset-0 bg-black/35"></div>
+      <div class="relative max-w-lg mx-auto mt-24 px-4">
+        <div class="rounded-[28px] border border-black/10 dark:border-white/10 bg-white/90 dark:bg-bakery-deep/90 backdrop-blur p-6 shadow-soft">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p id="modalTitle" class="font-display text-2xl"></p>
+              <p id="modalBody" class="mt-2 text-sm text-black/65 dark:text-white/65"></p>
+            </div>
+            <button id="modalClose" class="px-3 py-2 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/10 text-sm hover:bg-white/80 dark:hover:bg-white/15">
+              Close
+            </button>
+          </div>
+
+          <div class="mt-6 flex items-center justify-between">
+            <p class="text-sm text-black/60 dark:text-white/60">Tip: add to cart then pre-order.</p>
+            <a href="#order" class="px-4 py-2 rounded-2xl bg-bakery-honey text-bakery-ink font-medium text-sm hover:brightness-110">Go to order</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ------- Theme (dark/light) with localStorage -------
+    const root = document.documentElement;
+    const themeBtn = document.getElementById("themeBtn");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function setTheme(mode){
+      if(mode === "dark"){
+        root.classList.add("dark");
+        themeIcon.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+      } else {
+        root.classList.remove("dark");
+        themeIcon.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+      }
+    }
+
+    const saved = localStorage.getItem("theme");
+    if(saved){
+      setTheme(saved);
+    } else {
+      // default: follow system
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(prefersDark ? "dark" : "light");
+    }
+
+    themeBtn.addEventListener("click", () => {
+      setTheme(root.classList.contains("dark") ? "light" : "dark");
+    });
+
+    // ------- Mobile menu -------
+    const menuBtn = document.getElementById("menuBtn");
+    const mobilePanel = document.getElementById("mobilePanel");
+    menuBtn.addEventListener("click", () => {
+      const open = mobilePanel.classList.toggle("hidden") === false;
+      document.body.classList.toggle("menu-open", open);
+    });
+    mobilePanel.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => {
+        mobilePanel.classList.add("hidden");
+        document.body.classList.remove("menu-open");
+      });
+    });
+
+    // ------- Toast -------
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toastText");
+    let toastTimer = null;
+
+    function showToast(msg){
+      toastText.textContent = msg;
+      toast.classList.remove("hidden");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.add("hidden"), 2600);
+    }
+
+    document.getElementById("heroToast").addEventListener("click", () => {
+      const notes = [
+        "Baker note: brioche is extra soft today.",
+        "Tip: cinnamon roll is best warmed 10–12 sec.",
+        "New: honey citrus tart — limited batch.",
+        "Sourdough crust is louder today (in a good way)."
+      ];
+      showToast(notes[Math.floor(Math.random() * notes.length)]);
+    });
+
+    // ------- Reveal on scroll (IntersectionObserver) -------
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => io.observe(el));
+
+    // ------- Active nav links (scroll spy) -------
+    const sections = ["menu","specials","story","gallery","reviews","locations","order"]
+      .map(id => document.getElementById(id));
+
+    const navLinks = Array.from(document.querySelectorAll("[data-nav]"));
+
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const id = entry.target.id;
+          navLinks.forEach(a => {
+            const isActive = a.getAttribute("href") === "#" + id;
+            a.classList.toggle("text-bakery-ember", isActive && !root.classList.contains("dark"));
+            a.classList.toggle("text-bakery-honey", isActive && root.classList.contains("dark"));
+            a.classList.toggle("font-medium", isActive);
+          });
+        }
+      });
+    }, { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 });
+
+    sections.forEach(s => s && spy.observe(s));
+
+    // ------- Menu filter -------
+    const filterBtns = document.querySelectorAll(".filterBtn");
+    const menuItems = document.querySelectorAll(".menuItem");
+
+    function setActiveFilter(btn){
+      filterBtns.forEach(b => b.classList.remove("ring-2","ring-bakery-honey/40"));
+      btn.classList.add("ring-2","ring-bakery-honey/40");
+    }
+    setActiveFilter(filterBtns[0]);
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const cat = btn.dataset.filter;
+        setActiveFilter(btn);
+        menuItems.forEach(item => {
+          const ok = (cat === "all") || (item.dataset.cat === cat);
+          item.style.display = ok ? "" : "none";
+        });
+      });
+    });
+
+    // ------- Quick modal -------
+    const modal = document.getElementById("modal");
+    const modalBg = document.getElementById("modalBg");
+    const modalClose = document.getElementById("modalClose");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+
+    function openModal(title){
+      modalTitle.textContent = title;
+      modalBody.textContent = "Short detail: fresh batch, balanced sweetness, made in small quantities. You can add it to cart and pre-order for pickup.";
+      modal.classList.remove("hidden");
+      document.body.classList.add("menu-open");
+    }
+    function closeModal(){
+      modal.classList.add("hidden");
+      document.body.classList.remove("menu-open");
+    }
+
+    document.querySelectorAll("[data-quick]").forEach(btn => {
+      btn.addEventListener("click", () => openModal(btn.dataset.quick));
+    });
+    modalBg.addEventListener("click", closeModal);
+    modalClose.addEventListener("click", closeModal);
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+    });
+
+    // ------- Cart (localStorage demo) -------
+    const cartCount = document.getElementById("cartCount");
+    const cartItemsLine = document.getElementById("cartItemsLine");
+
+    function getCart(){
+      try { return JSON.parse(localStorage.getItem("cart") || "[]"); }
+      catch { return []; }
+    }
+    function setCart(items){
+      localStorage.setItem("cart", JSON.stringify(items));
+      cartCount.textContent = `(${items.length})`;
+      cartItemsLine.textContent = items.length;
+    }
+
+    setCart(getCart());
+
+    document.querySelectorAll(".addBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const cart = getCart();
+        cart.push({ name: btn.dataset.name, price: Number(btn.dataset.price) });
+        setCart(cart);
+        showToast(`Added: ${btn.dataset.name}`);
+      });
+    });
+
+    document.getElementById("cartBtn")?.addEventListener("click", () => {
+      const cart = getCart();
+      if(!cart.length) return showToast("Cart is empty (add something tasty).");
+      const total = cart.reduce((s, i) => s + i.price, 0);
+      showToast(`Cart: ${cart.length} item(s) • Total $${total}`);
+    });
+
+    // ------- Reviews slider -------
+    const reviews = [
+      { name: "Aylin", text: "Kruassanlar çox yüngüldür. İçəri girəndə işıq və qoxu adamı sakitləşdirir.", meta: "local guide" },
+      { name: "Murad", text: "Sourdough loaf — tam balans. Nə çox turş, nə də boş dad.", meta: "bread fan" },
+      { name: "Nigar", text: "Honey tartı aldım, şirinliyi ideal idi. Paketləmə də səliqəli.", meta: "weekly customer" },
+    ];
+
+    const reviewCard = document.getElementById("reviewCard");
+    const reviewDots = document.getElementById("reviewDots");
+    const prevReview = document.getElementById("prevReview");
+    const nextReview = document.getElementById("nextReview");
+    let reviewIndex = 0;
+    let reviewTimer = null;
+
+    function renderReview(i){
+      const r = reviews[i];
+      reviewCard.innerHTML = `
+        <p class="font-display text-2xl leading-snug">“${r.text}”</p>
+        <div class="mt-4 flex items-center justify-between">
+          <p class="text-sm text-black/70 dark:text-white/70"><span class="font-medium">${r.name}</span> • ${r.meta}</p>
+          <p class="text-sm text-bakery-ember dark:text-bakery-honey">${i+1}/${reviews.length}</p>
+        </div>
+      `;
+      reviewDots.innerHTML = "";
+      reviews.forEach((_, idx) => {
+        const dot = document.createElement("button");
+        dot.className = "h-2.5 w-2.5 rounded-full border border-black/10 dark:border-white/10";
+        dot.style.background = idx === i ? (root.classList.contains("dark") ? "#C9732C" : "#9A3B1A") : "transparent";
+        dot.addEventListener("click", () => { reviewIndex = idx; renderReview(reviewIndex); resetReviewTimer(); });
+        reviewDots.appendChild(dot);
+      });
+    }
+
+    function resetReviewTimer(){
+      clearInterval(reviewTimer);
+      reviewTimer = setInterval(() => {
+        reviewIndex = (reviewIndex + 1) % reviews.length;
+        renderReview(reviewIndex);
+      }, 4500);
+    }
+
+    prevReview.addEventListener("click", () => {
+      reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
+      renderReview(reviewIndex);
+      resetReviewTimer();
+    });
+    nextReview.addEventListener("click", () => {
+      reviewIndex = (reviewIndex + 1) % reviews.length;
+      renderReview(reviewIndex);
+      resetReviewTimer();
+    });
+
+    renderReview(reviewIndex);
+    resetReviewTimer();
+
+    // ------- Gallery shuffle -------
+    const shuffleBtn = document.getElementById("shuffleGallery");
+    const galleryGrid = document.getElementById("galleryGrid");
+    shuffleBtn.addEventListener("click", () => {
+      const tiles = Array.from(galleryGrid.querySelectorAll(".gTile"));
+      for (let i = tiles.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        galleryGrid.insertBefore(tiles[j], tiles[i]);
+        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+      }
+      showToast("Gallery shuffled ✨");
+    });
+
+    // ------- Specials join -------
+    document.getElementById("specialJoin").addEventListener("click", () => {
+      const email = document.getElementById("specialEmail").value.trim();
+      if(!email || !email.includes("@")) return showToast("Write a valid email.");
+      showToast("Joined! (demo) Weekly specials will be sent.");
+      document.getElementById("specialEmail").value = "";
+    });
+
+    // ------- Order form submit (demo) -------
+    document.getElementById("orderForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const cart = getCart();
+      if(!cart.length){
+        showToast("Add at least 1 item to cart first.");
+        return;
+      }
+      const total = cart.reduce((s, i) => s + i.price, 0);
+      showToast(`Order confirmed (demo). Total: $${total}`);
+      // clear cart after demo submit
+      setCart([]);
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

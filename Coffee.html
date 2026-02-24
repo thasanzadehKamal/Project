@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrewHouse – Dark Coffee Layout</title>
+
+  <!-- Fonts (estetik) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind theme colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Fraunces", "serif"],
+            sans: ["Inter", "system-ui", "sans-serif"],
+          },
+          colors: {
+            coffee: {
+              black: "#0B0706",
+              deep:  "#140C09",
+              brown: "#241611",
+              mocha: "#3A241B",
+              cream: "#E7D8C9",
+              latte: "#C9A98B",
+              amber: "#C9732C",   // dark orange
+              ember: "#9A3B1A",   // burnt orange
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* yumşaq “grain” (estetik) */
+    .grain:before{
+      content:"";
+      position:absolute; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity:.22;
+      pointer-events:none;
+    }
+  </style>
+</head>
+
+<body class="bg-coffee-black text-coffee-cream font-sans selection:bg-coffee-amber/30 selection:text-coffee-cream">
+
+  <!-- BACKGROUND: köhnə lampa glow-lar + grain -->
+  <div class="relative min-h-screen overflow-hidden grain">
+    <!-- lamp glows -->
+    <div class="pointer-events-none absolute -top-24 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full blur-3xl opacity-50
+                bg-[radial-gradient(circle_at_center,rgba(201,115,44,0.35),rgba(201,115,44,0)_65%)]"></div>
+
+    <div class="pointer-events-none absolute top-32 -left-20 h-[420px] w-[420px] rounded-full blur-3xl opacity-45
+                bg-[radial-gradient(circle_at_center,rgba(154,59,26,0.35),rgba(154,59,26,0)_65%)]"></div>
+
+    <div class="pointer-events-none absolute bottom-0 right-0 h-[520px] w-[520px] rounded-full blur-3xl opacity-35
+                bg-[radial-gradient(circle_at_center,rgba(201,169,139,0.22),rgba(201,169,139,0)_70%)]"></div>
+
+    <!-- subtle vignette -->
+    <div class="pointer-events-none absolute inset-0
+                bg-[radial-gradient(circle_at_top,rgba(0,0,0,0)_0%,rgba(0,0,0,0.25)_60%,rgba(0,0,0,0.55)_100%)]"></div>
+
+    <!-- Top bar -->
+    <div class="relative border-b border-white/10">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between text-xs text-white/70">
+        <p>Open: 08:00–22:00 • Pickup • Fresh roast</p>
+        <div class="hidden sm:flex gap-4">
+          <a class="hover:text-coffee-cream" href="#locations">Locations</a>
+          <a class="hover:text-coffee-cream" href="#order">Order</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative sticky top-0 z-50 backdrop-blur border-b border-white/10 bg-coffee-black/55">
+      <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-3">
+          <span class="grid place-items-center h-10 w-10 rounded-2xl bg-white/10 border border-white/10">
+            <span class="font-display text-lg tracking-tight text-coffee-cream">B</span>
+          </span>
+          <div class="leading-tight">
+            <p class="font-display text-lg">BrewHouse</p>
+            <p class="text-[11px] text-white/60 -mt-0.5">coffee • craft • story</p>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-7 text-sm text-white/70">
+          <a class="hover:text-coffee-cream" href="#menu">Menu</a>
+          <a class="hover:text-coffee-cream" href="#origins">Origins</a>
+          <a class="hover:text-coffee-cream" href="#story">Story</a>
+          <a class="hover:text-coffee-cream" href="#baristas">Baristas</a>
+          <a class="hover:text-coffee-cream" href="#loyalty">Loyalty</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="#order"
+             class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-2xl
+                    bg-coffee-amber/15 border border-coffee-amber/25 text-coffee-cream text-sm
+                    hover:bg-coffee-amber/20">
+            <span class="h-2 w-2 rounded-full bg-coffee-amber shadow-[0_0_18px_rgba(201,115,44,0.75)]"></span>
+            Order pickup
+          </a>
+          <button class="md:hidden px-3 py-2 rounded-2xl border border-white/10 text-white/80">Menu</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="relative">
+      <div class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+        <div class="grid grid-cols-12 gap-10 items-center">
+          <div class="col-span-12 md:col-span-6">
+            <p class="text-xs tracking-[0.22em] uppercase text-white/60">
+              small-batch roasting • cozy pickup
+            </p>
+
+            <h1 class="mt-4 font-display text-4xl md:text-5xl leading-[1.05]">
+              Qaranlıq gecələrə uyğun,
+              <span class="text-coffee-latte">isti</span> bir fincan.
+            </h1>
+
+            <p class="mt-5 text-white/70 max-w-prose">
+              Köhnə lampanın yumşaq işığı kimi: aromatik, sakit, estetik.
+              Origin notları, roast profillər və sürətli pickup sifarişi.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#order"
+                 class="px-5 py-3 rounded-2xl bg-coffee-amber text-coffee-black text-sm font-medium
+                        hover:brightness-110 shadow-[0_10px_35px_rgba(201,115,44,0.20)]">
+                Start an order
+              </a>
+              <a href="#menu"
+                 class="px-5 py-3 rounded-2xl border border-white/10 bg-white/5 text-sm
+                        hover:bg-white/10">
+                View menu
+              </a>
+            </div>
+
+            <!-- stats -->
+            <div class="mt-10 grid grid-cols-3 gap-4 max-w-md">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p class="font-display text-2xl">50k+</p>
+                <p class="text-xs text-white/60">Customers</p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p class="font-display text-2xl">12+</p>
+                <p class="text-xs text-white/60">Origins</p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p class="font-display text-2xl">4.9</p>
+                <p class="text-xs text-white/60">Rating</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- right media card -->
+          <div class="col-span-12 md:col-span-6">
+            <div class="relative rounded-[28px] border border-white/10 bg-gradient-to-b from-white/10 to-white/5 p-4">
+              <!-- inner glow -->
+              <div class="pointer-events-none absolute inset-0 rounded-[28px]
+                          bg-[radial-gradient(circle_at_30%_10%,rgba(201,115,44,0.22),rgba(0,0,0,0)_55%)]"></div>
+
+              <div class="aspect-[4/3] rounded-3xl bg-coffee-deep border border-white/10 grid place-items-center overflow-hidden">
+                <div class="text-center">
+                  <p class="text-white/60 text-sm">Hero image / slider</p>
+                  <p class="mt-2 text-xs text-white/45">Buraya şəkil və ya carousel qoyursan</p>
+                </div>
+              </div>
+
+              <div class="mt-4 flex items-center justify-between text-xs text-white/55">
+                <span>Warm glow • Dark amber</span>
+                <span class="text-coffee-amber">●</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="relative py-16 border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-end justify-between gap-6">
+          <div>
+            <h2 class="font-display text-3xl">Menu</h2>
+            <p class="mt-2 text-white/65">Espresso, pour-over, cold brew • sizes & add-ons.</p>
+          </div>
+
+          <div class="hidden md:flex gap-2">
+            <button class="px-4 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">Coffee</button>
+            <button class="px-4 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">Tea</button>
+            <button class="px-4 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">Pastry</button>
+          </div>
+        </div>
+
+        <div class="mt-10 grid grid-cols-12 gap-6">
+          <div class="col-span-12 md:col-span-7 space-y-4">
+            <!-- item -->
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-5 flex items-start justify-between gap-4 hover:bg-white/10">
+              <div>
+                <p class="font-medium">Latte</p>
+                <p class="text-sm text-white/60">S / M / L • oat milk • vanilla</p>
+              </div>
+              <p class="font-display text-lg text-coffee-latte">$4.50</p>
+            </div>
+
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-5 flex items-start justify-between gap-4 hover:bg-white/10">
+              <div>
+                <p class="font-medium">Pour-over</p>
+                <p class="text-sm text-white/60">Single origin • light roast notes</p>
+              </div>
+              <p class="font-display text-lg text-coffee-latte">$5.00</p>
+            </div>
+
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-5 flex items-start justify-between gap-4 hover:bg-white/10">
+              <div>
+                <p class="font-medium">Cold brew</p>
+                <p class="text-sm text-white/60">Classic / nitro • smooth</p>
+              </div>
+              <p class="font-display text-lg text-coffee-latte">$4.80</p>
+            </div>
+          </div>
+
+          <aside class="col-span-12 md:col-span-5">
+            <div class="relative rounded-[28px] border border-white/10 bg-gradient-to-b from-white/10 to-white/5 p-6 overflow-hidden">
+              <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl
+                          bg-[radial-gradient(circle_at_center,rgba(201,115,44,0.28),rgba(201,115,44,0)_70%)]"></div>
+
+              <h3 class="font-display text-xl">Customize</h3>
+              <p class="mt-2 text-sm text-white/65">Size • milk • syrup • pickup time</p>
+
+              <div class="mt-6 space-y-4">
+                <div>
+                  <p class="text-sm font-medium">Size</p>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <button class="px-3 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">S</button>
+                    <button class="px-3 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">M</button>
+                    <button class="px-3 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">L</button>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="text-sm font-medium">Milk</p>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <button class="px-3 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">Dairy</button>
+                    <button class="px-3 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">Oat</button>
+                    <button class="px-3 py-2 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10">Almond</button>
+                  </div>
+                </div>
+
+                <a href="#order"
+                   class="inline-flex w-full justify-center px-4 py-3 rounded-2xl bg-coffee-amber text-coffee-black text-sm font-medium
+                          hover:brightness-110 shadow-[0_10px_35px_rgba(201,115,44,0.20)]">
+                  Continue to order
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORIGINS -->
+    <section id="origins" class="py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-12 gap-10 items-center">
+          <div class="col-span-12 md:col-span-6">
+            <h2 class="font-display text-3xl">Bean origins</h2>
+            <p class="mt-2 text-white/65">Origin + roast notes. Qəhvə “hiss”i verən bölmə.</p>
+
+            <div class="mt-7 grid grid-cols-2 gap-4">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p class="font-medium">Ethiopia</p>
+                <p class="text-xs text-white/60">floral • citrus • light</p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p class="font-medium">Colombia</p>
+                <p class="text-xs text-white/60">caramel • cocoa • medium</p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p class="font-medium">Brazil</p>
+                <p class="text-xs text-white/60">nutty • smooth • medium</p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4">
+                <p class="font-medium">Guatemala</p>
+                <p class="text-xs text-white/60">spice • chocolate • dark</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="relative aspect-[16/10] rounded-[28px] border border-white/10 bg-white/5 overflow-hidden">
+              <div class="pointer-events-none absolute inset-0
+                          bg-[radial-gradient(circle_at_70%_20%,rgba(201,115,44,0.22),rgba(0,0,0,0)_55%)]"></div>
+              <div class="h-full grid place-items-center">
+                <p class="text-white/55 text-sm">Map / pins / origins viz</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section id="story" class="py-16 border-y border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-12 gap-10">
+          <div class="col-span-12 md:col-span-5">
+            <h2 class="font-display text-3xl">Our story</h2>
+            <p class="mt-2 text-white/65">Sakit, premium hiss üçün qısa story + proses.</p>
+          </div>
+
+          <div class="col-span-12 md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10">
+              <p class="font-medium">1) Source</p>
+              <p class="text-sm text-white/60 mt-1">Seasonal lots, direct trade.</p>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10">
+              <p class="font-medium">2) Roast</p>
+              <p class="text-sm text-white/60 mt-1">Profile-by-origin tuning.</p>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10">
+              <p class="font-medium">3) Brew</p>
+              <p class="text-sm text-white/60 mt-1">Pour-over & espresso craft.</p>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-5 hover:bg-white/10">
+              <p class="font-medium">4) Serve</p>
+              <p class="text-sm text-white/60 mt-1">Pickup-ready & cozy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARISTAS -->
+    <section id="baristas" class="py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="font-display text-3xl">Meet the baristas</h2>
+        <p class="mt-2 text-white/65">Profil kartları — estetik, yumşaq glow.</p>
+
+        <div class="mt-10 grid grid-cols-12 gap-6">
+          <!-- card -->
+          <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+            <div class="relative rounded-[28px] border border-white/10 bg-white/5 p-5 overflow-hidden hover:bg-white/10">
+              <div class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full blur-3xl
+                          bg-[radial-gradient(circle_at_center,rgba(201,115,44,0.22),rgba(201,115,44,0)_70%)]"></div>
+              <div class="aspect-square rounded-3xl bg-coffee-deep border border-white/10"></div>
+              <p class="mt-4 font-medium">Aysel</p>
+              <p class="text-sm text-white/60">Signature: Oat Latte</p>
+            </div>
+          </div>
+
+          <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+            <div class="rounded-[28px] border border-white/10 bg-white/5 p-5 hover:bg-white/10">
+              <div class="aspect-square rounded-3xl bg-coffee-deep border border-white/10"></div>
+              <p class="mt-4 font-medium">Murad</p>
+              <p class="text-sm text-white/60">Signature: V60</p>
+            </div>
+          </div>
+
+          <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+            <div class="rounded-[28px] border border-white/10 bg-white/5 p-5 hover:bg-white/10">
+              <div class="aspect-square rounded-3xl bg-coffee-deep border border-white/10"></div>
+              <p class="mt-4 font-medium">Elvin</p>
+              <p class="text-sm text-white/60">Signature: Espresso</p>
+            </div>
+          </div>
+
+          <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+            <div class="rounded-[28px] border border-white/10 bg-white/5 p-5 hover:bg-white/10">
+              <div class="aspect-square rounded-3xl bg-coffee-deep border border-white/10"></div>
+              <p class="mt-4 font-medium">Nigar</p>
+              <p class="text-sm text-white/60">Signature: Cold Brew</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOYALTY -->
+    <section id="loyalty" class="py-16 border-y border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-12 gap-10 items-center">
+          <div class="col-span-12 md:col-span-6">
+            <h2 class="font-display text-3xl">Loyalty rewards</h2>
+            <p class="mt-2 text-white/65">Point sistemi + reward tier-lar.</p>
+            <div class="mt-6 flex gap-3">
+              <a class="px-5 py-3 rounded-2xl bg-coffee-amber text-coffee-black text-sm font-medium hover:brightness-110" href="#order">
+                Join & order
+              </a>
+              <a class="px-5 py-3 rounded-2xl border border-white/10 bg-white/5 text-sm hover:bg-white/10" href="#">
+                See rewards
+              </a>
+            </div>
+          </div>
+
+          <div class="col-span-12 md:col-span-6">
+            <div class="rounded-[28px] border border-white/10 bg-white/5 p-6">
+              <p class="text-sm font-medium">Example tiers</p>
+              <ul class="mt-4 space-y-3 text-sm text-white/65">
+                <li class="flex justify-between"><span>5 drinks</span><span class="text-coffee-latte">Free add-on</span></li>
+                <li class="flex justify-between"><span>10 drinks</span><span class="text-coffee-latte">Free drink</span></li>
+                <li class="flex justify-between"><span>20 drinks</span><span class="text-coffee-latte">Merch discount</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section id="locations" class="py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="font-display text-3xl">Locations</h2>
+        <p class="mt-2 text-white/65">Adres + saat + xəritə.</p>
+
+        <div class="mt-10 grid grid-cols-12 gap-6">
+          <div class="col-span-12 md:col-span-4 rounded-[28px] border border-white/10 bg-white/5 p-6 hover:bg-white/10">
+            <p class="font-medium">Downtown</p>
+            <p class="mt-1 text-sm text-white/60">Mon–Sun • 08:00–22:00</p>
+            <p class="mt-3 text-sm text-white/70">Address line here</p>
+          </div>
+          <div class="col-span-12 md:col-span-4 rounded-[28px] border border-white/10 bg-white/5 p-6 hover:bg-white/10">
+            <p class="font-medium">Seaside</p>
+            <p class="mt-1 text-sm text-white/60">Mon–Sun • 09:00–23:00</p>
+            <p class="mt-3 text-sm text-white/70">Address line here</p>
+          </div>
+          <div class="col-span-12 md:col-span-4 rounded-[28px] border border-white/10 bg-white/5 p-6 hover:bg-white/10">
+            <p class="font-medium">Uptown</p>
+            <p class="mt-1 text-sm text-white/60">Mon–Fri • 08:00–20:00</p>
+            <p class="mt-3 text-sm text-white/70">Address line here</p>
+          </div>
+
+          <div class="col-span-12">
+            <div class="relative aspect-[21/9] rounded-[28px] border border-white/10 bg-white/5 overflow-hidden">
+              <div class="pointer-events-none absolute inset-0
+                          bg-[radial-gradient(circle_at_20%_30%,rgba(154,59,26,0.22),rgba(0,0,0,0)_55%)]"></div>
+              <div class="h-full grid place-items-center">
+                <p class="text-white/55 text-sm">Map embed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDER -->
+    <section id="order" class="py-16 border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-12 gap-10">
+          <div class="col-span-12 md:col-span-5">
+            <h2 class="font-display text-3xl">Order for pickup</h2>
+            <p class="mt-2 text-white/65">Form minimal, premium hissli.</p>
+          </div>
+
+          <form class="col-span-12 md:col-span-7 rounded-[28px] border border-white/10 bg-white/5 p-6 space-y-4">
+            <div class="grid grid-cols-12 gap-4">
+              <div class="col-span-12 sm:col-span-6">
+                <label class="text-sm text-white/70">Name</label>
+                <input class="mt-2 w-full px-4 py-3 rounded-2xl border border-white/10 bg-coffee-deep/40 outline-none
+                              focus:ring-2 focus:ring-coffee-amber/40"
+                       placeholder="Your name" />
+              </div>
+              <div class="col-span-12 sm:col-span-6">
+                <label class="text-sm text-white/70">Phone</label>
+                <input class="mt-2 w-full px-4 py-3 rounded-2xl border border-white/10 bg-coffee-deep/40 outline-none
+                              focus:ring-2 focus:ring-coffee-amber/40"
+                       placeholder="+994 ..." />
+              </div>
+              <div class="col-span-12">
+                <label class="text-sm text-white/70">Pickup location</label>
+                <select class="mt-2 w-full px-4 py-3 rounded-2xl border border-white/10 bg-coffee-deep/40 outline-none
+                               focus:ring-2 focus:ring-coffee-amber/40">
+                  <option>Downtown</option>
+                  <option>Seaside</option>
+                  <option>Uptown</option>
+                </select>
+              </div>
+              <div class="col-span-12">
+                <label class="text-sm text-white/70">Notes</label>
+                <textarea class="mt-2 w-full px-4 py-3 rounded-2xl border border-white/10 bg-coffee-deep/40 outline-none
+                                 focus:ring-2 focus:ring-coffee-amber/40"
+                          rows="4" placeholder="Milk, syrup, time..."></textarea>
+              </div>
+            </div>
+
+            <button type="button"
+                    class="w-full px-4 py-3 rounded-2xl bg-coffee-amber text-coffee-black text-sm font-medium
+                           hover:brightness-110 shadow-[0_10px_35px_rgba(201,115,44,0.20)]">
+              Place order (demo)
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-12 gap-8">
+        <div class="col-span-12 md:col-span-4">
+          <p class="font-display text-lg">BrewHouse</p>
+          <p class="mt-2 text-sm text-white/60">Warm glow • dark roast • calm vibes</p>
+        </div>
+
+        <div class="col-span-6 md:col-span-2">
+          <p class="text-sm font-medium">Explore</p>
+          <ul class="mt-3 space-y-2 text-sm text-white/60">
+            <li><a class="hover:text-coffee-cream" href="#menu">Menu</a></li>
+            <li><a class="hover:text-coffee-cream" href="#origins">Origins</a></li>
+            <li><a class="hover:text-coffee-cream" href="#story">Story</a></li>
+          </ul>
+        </div>
+
+        <div class="col-span-6 md:col-span-2">
+          <p class="text-sm font-medium">Company</p>
+          <ul class="mt-3 space-y-2 text-sm text-white/60">
+            <li><a class="hover:text-coffee-cream" href="#locations">Locations</a></li>
+            <li><a class="hover:text-coffee-cream" href="#loyalty">Loyalty</a></li>
+            <li><a class="hover:text-coffee-cream" href="#order">Order</a></li>
+          </ul>
+        </div>
+
+        <div class="col-span-12 md:col-span-4">
+          <p class="text-sm font-medium">Newsletter</p>
+          <div class="mt-3 flex gap-2">
+            <input class="flex-1 px-4 py-3 rounded-2xl border border-white/10 bg-coffee-deep/40 outline-none
+                          focus:ring-2 focus:ring-coffee-amber/40"
+                   placeholder="Email" />
+            <button class="px-4 py-3 rounded-2xl bg-white/10 border border-white/10 text-sm hover:bg-white/15">
+              Join
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-4 py-6 text-xs text-white/45 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+        <p>© 2026 BrewHouse</p>
+        <p>Dark coffee palette • lamp glow aesthetic</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

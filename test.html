@@ -1,345 +1,250 @@
-<!DOCTYPE html>
-<html lang="en">
-
+﻿<!DOCTYPE html>
+<html lang="az">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komputer Avadanlıqları</title>
+    <style>
+        :root {
+            --bg-0: #120b05;
+            --bg-1: #1d1208;
+            --bg-2: #2a190b;
+            --panel: rgba(34, 20, 10, 0.82);
+            --line: rgba(255, 179, 77, 0.26);
+            --text: #ffe6c2;
+            --muted: #d7b488;
+            --amber: #ffb43a;
+            --amber-soft: #ffce76;
+            --glow: rgba(255, 168, 52, 0.35);
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        <link rel="stylesheet" href="./My Project/test.css">
-        
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 12%, rgba(255, 169, 60, 0.12), transparent 32%),
+                radial-gradient(circle at 80% 20%, rgba(255, 130, 40, 0.08), transparent 28%),
+                linear-gradient(160deg, var(--bg-0) 0%, var(--bg-1) 45%, #0f0905 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(transparent 96%, rgba(255, 180, 58, 0.04) 100%),
+                linear-gradient(90deg, transparent 96%, rgba(255, 180, 58, 0.03) 100%);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .shell { width: min(1120px, 92%); margin: 0 auto; }
+
+        .topbar {
+            position: sticky;
+            top: 14px;
+            z-index: 30;
+            margin: 14px auto 0;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(25, 14, 7, 0.78);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+        }
+
+        .brand { font-weight: 700; letter-spacing: 0.04em; color: var(--amber-soft); }
+        .nav { display: flex; gap: 10px; }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            padding: 8px 12px;
+            transition: 0.2s ease;
+            font-size: 0.92rem;
+        }
+
+        .nav a:hover {
+            border-color: var(--line);
+            background: rgba(255, 179, 77, 0.1);
+            color: var(--amber-soft);
+        }
+
+        .hero {
+            margin-top: 36px;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(44, 26, 12, 0.9), rgba(20, 12, 6, 0.92));
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 40px var(--glow);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+        }
+
+        .hero-main { padding: 48px; }
+
+        .kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--amber-soft);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--line);
+            padding: 6px 10px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
+        h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08; }
+        .hero p { color: var(--muted); max-width: 60ch; }
+
+        .hero-side {
+            border-left: 1px solid var(--line);
+            background: linear-gradient(170deg, rgba(255, 180, 58, 0.08), rgba(0, 0, 0, 0));
+            padding: 28px;
+            display: grid;
+            gap: 12px;
+            align-content: center;
+        }
+
+        .chip {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            border-radius: 14px;
+            padding: 12px;
+        }
+
+        .chip h3 { margin: 0 0 8px; color: var(--amber-soft); font-size: 1rem; }
+        .chip p { margin: 0; font-size: 0.9rem; }
+
+        main { margin-top: 30px; display: grid; gap: 24px; }
+        .stack { display: grid; gap: 24px; grid-template-columns: 1fr 1fr; }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: var(--panel);
+            padding: 24px;
+        }
+
+        .panel h2 { margin-top: 0; font-size: 1.2rem; color: var(--amber); letter-spacing: 0.03em; }
+        .card-grid { display: grid; gap: 12px; }
+
+        .unit {
+            border: 1px solid rgba(255, 179, 77, 0.2);
+            border-radius: 12px;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .unit strong { color: #ffd48f; display: block; margin-bottom: 6px; }
+        .timeline { display: grid; gap: 12px; }
+
+        .timeline div {
+            padding: 12px 14px;
+            border-left: 3px solid var(--amber);
+            background: rgba(255, 179, 77, 0.07);
+            border-radius: 0 10px 10px 0;
+            color: var(--muted);
+        }
+
+        footer { margin: 34px 0 18px; text-align: center; color: #af8960; font-size: 0.88rem; }
+
+        @media (max-width: 920px) {
+            .hero, .stack { grid-template-columns: 1fr; }
+            .hero-side { border-left: none; border-top: 1px solid var(--line); }
+            .topbar { flex-direction: column; gap: 10px; border-radius: 20px; }
+            .nav { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container1">
-        <nav>
-            <div class="pages">
-                <ul>
-                    <a href=""><i class="fa-brands fa-apple"></i></a>
-                    <a href="#">Store</a>
-                    <a href="#">Mac</a>
-                    <a href="#">iPad</a>
-                    <a href="#">iPhone</a>
-                    <a href="#">Watch</a>
-                    <a href="#">AirPods</a>
-                    <a href="#">TV & Home</a>
-                    <a href="#">Only on Apple</a>
-                    <a href="#">Accessories</a>
-                    <a href="#">Support</a>
-                    <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                </ul>
-            </div>
-        </nav>
-
-
-
-        <header>
-            <div class="intro">
-                <h1>Apple Shopping Event</h1>
-                <p>From November 25 to 28, get an Apple Gift Card when you buy an eligible product.1</p>
-                <a href="#">Get an early look</a>
+    <div class="shell">
+        <header class="topbar">
+            <div class="brand">Rabite ve informasiya texnologiyari liseyi</div>
+            <nav class="nav">
+                <a href="#esas">Esas</a>
+                <a href="#elave">Elave</a>
+                <a href="#sebeke">Sebeke</a>
+                <a href="#haqqinda">Haqqinda</a>
+            </nav>
         </header>
+
+        <section class="hero">
+            <div class="hero-main">
+                <span class="kicker">By Kamal</span>
+                <h1>Komputer Avadanliqlari Haqqinda</h1>
+                
+            </div>
+            <aside class="hero-side">
+               
+                <article class="chip">
+                    
+                    <p>Əsas hissə, əlavə qurğular, şəbəkə və timeline ardıcıllığı.</p>
+                </article>
+            </aside>
+        </section>
+
+        <main>
+            <div class="stack">
+                <section id="esas" class="panel">
+                    <h2>Esas Avadanliqlar</h2>
+                    <div class="card-grid">
+                        <article class="unit"><strong>Prosessor (CPU)</strong>Bütün əməliyyatların mərkəzi idarəetmə nöqtəsidir.</article>
+                        <article class="unit"><strong>Operativ Yaddas (RAM)</strong>Aktiv proseslərin sürətli işləməsi üçün müvəqqəti yaddaş.</article>
+                        <article class="unit"><strong>Saxlama (SSD/HDD)</strong>Faylların daimi saxlanması və sistemin açılış sürəti.</article>
+                        <article class="unit"><strong>Qrafik Karti (GPU)</strong>Vizual render və ağır qrafik işlərdə performans elementi.</article>
+                    </div>
+                </section>
+
+                <section id="elave" class="panel">
+                    <h2>Elave Qurgular</h2>
+                    <div class="card-grid">
+                        <article class="unit"><strong>Monitor</strong>Vizual çıxış və rəng dəqiqliyi üçün əsas ekran cihazı.</article>
+                        <article class="unit"><strong>Klaviatura</strong>Mətn və komanda girişini təmin edən input qurğusu.</article>
+                        <article class="unit"><strong>Sican</strong>Naviqasiya və idarə üçün dəqiq hərəkət cihazı.</article>
+                        <article class="unit"><strong>Printer</strong>Rəqəmsal məlumatların fiziki nüsxəyə çevrilməsi.</article>
+                    </div>
+                </section>
+            </div>
+
+            <section id="sebeke" class="panel">
+                <h2>Sebeke Infrastrukturu</h2>
+                <div class="card-grid">
+                    <article class="unit"><strong>Ethernet</strong>Kabelli bağlantı standartıdır; stabil və aşağı gecikməli data ötürür.</article>
+                    <article class="unit"><strong>Router</strong>Şəbəkələr arasında trafik yönləndirir və internet çıxışını paylayır.</article>
+                    <article class="unit"><strong>Switch</strong>Lokal şəbəkədə cihazları birləşdirir və paketləri doğru porta ötürür.</article>
+                    <article class="unit"><strong>Server</strong>Fayl, tətbiq və verilənlər bazası xidmətlərini mərkəzləşdirilmiş şəkildə təqdim edir.</article>
+                    <article class="unit"><strong>Modem</strong>ISP xəttindən gələn siqnalı şəbəkədə istifadə üçün uyğunlaşdırır.</article>
+                    <article class="unit"><strong>Firewall</strong>Trafiki filtr edərək icazəsiz giriş cəhdlərinə qarşı qoruma yaradır.</article>
+                </div>
+            </section>
+
+            <section id="haqqinda" class="panel">
+                <h2>Haqqinda</h2>
+                <div class="timeline">
+                    <div>Daxili avadanlıqlar kompüterin hesablamasını, sürətini və dayanıqlığını müəyyən edir.</div>
+                    <div>Xarici avadanlıqlar istifadəçi təcrübəsini və gündəlik idarəni formalaşdırır.</div>
+                    <div>Şəbəkə avadanlıqları (ethernet, router, switch, server) əlaqəni, təhlükəsizliyi və xidmətlərin davamlılığını təmin edir.</div>
+                </div>
+            </section>
+        </main>
+
     </div>
 
-    <div class="container2">
-
-        <div class="intro2">
-            <div class="h31">
-                <h3>Will Ferrell</h3>
-            </div>
-            <div class="h32">
-                <h3>Ryan Reynolds</h3>
-            </div>
-            <div class="p2">
-                <p>A new musical comedy based on a holiday classic.</p>
-            </div>
-            <div class="p3">
-                <p>Now streaming</p>
-            </div>
-
-        </div>
-    </div>
-    <div class="container3">
-        <div class="intro3">
-            <h1>iPhone 14</h1>
-            <p>Big and bigger</p>
-            <a href="">Learn more/Buy</a>
-        </div>
-    </div>
-
-    <section id="first1">
-        <div class="div1">
-            <div class="div11">
-                <h2>iPhone 14 Pro</h2>
-                <p>Pro.Beyond.</p>
-                <a href="">Learn more/Buy</a>
-            </div>
-        </div>
-        <div class="div2">
-            <div class="div22">
-                <h2>iPad</h2>
-                <p>Lovable.Drawble.Magical.</p>
-                <a href="">Learn more/Buy</a>
-            </div>
-        </div>
-        <div class="div3">
-            <div class="div33">
-                <i class="fa-brands fa-apple" id="airpods"></i>
-                <h2>AirPods</h2>
-                <p>Share the joy.</p>
-                <a href="">Shop</a>
-            </div>
-        </div>
-        <div class="div4">
-            <div class="div44">
-                <h2><i class="fa-brands fa-apple"></i>WATCH</h2>
-                <p id="p1">Series 8</p>
-                <p>A healthy leap ahead.</p>
-                <a href="">Learn more/Buy</a>
-            </div>
-        </div>
-
-        <div class="div5">
-            <div class="div55">
-                <h2><i class="fa-brands fa-apple"></i>WATCH</h2>
-                <p id="p2">ULTRA</p>
-                <p>Adventure awaits.</p>
-                <a href="">Learn more/Buy</a>
-            </div>
-        </div>
-
-        <div class="div6">
-            <div class="div66">
-                <h2><i class="fa-brands fa-apple"></i>Card</h2>
-                <p>Get up to 3% Daily Cash back with every purchase.</p>
-                <a href="">Learn more Apply now</a>
-            </div>
-        </div>
-    </section>
-
-
-
-    <div class="tvplusgallery">
-        <div class="slide">
-            <div class="slides"><img src="./pngs/photopages1.jpg" alt=""></div>
-            <div class="slides">
-                <img src="./pngs/f423c4cc7bf8a6717911b5dfeb0216f4245f0af3.jpg" alt="">
-            </div>
-            <div class="slides"> <img src="./pngs/photopages2.jpg" alt=""></div>
-        </div>
-        <div class="streamnow">
-            <button>Stream Now</button>
-            <div class="streamnow2">
-                <h3>Comedy</h3>
-                <p>· Start your holidays on a high note.</p>
-            </div>
-
-        </div>
-        <div class="dots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-        </div>
-    </div>
-
-
-
-    <div class="container4">
-        <div class="aboutus">
-            <p class="text">1. Offer valid on qualifying purchases of eligible Apple products from November 25, 2022, to November 28,
-                2022, at a qualifying location. Offer subject to availability. While supplies last. Customers shall
-                receive a discount equal to the value of the Promotion Product (depending on their purchase) off the
-                price of the Eligible Product, but will be charged for all items in their cart. Important notice
-                regarding the checkout receipt and monthly statement for Apple Card Monthly Installment (ACMI) purchases
-                with this promotion: A purchase of an Eligible Product made when selecting ACMI (a 0% APR payment option
-                available only in the U.S.) as the payment type at checkout will receive an instant credit equal to the
-                cost of the Promotion Product (Apple Gift Card) deducted from the price of the Eligible Product at the
-                time of purchase. You will be charged one ACMI installment plan for the Eligible Product discounted by
-                the instant credit. The value of the Promotion Product (i.e. the value of the Apple Gift Card) will also
-                be charged in a separate second ACMI installment plan for the same number of months as the discounted
-                Eligible Product. The total combined amount charged over the 2 separate ACMI installment plans will
-                reflect the original full retail price of the Eligible Product. Separately, you will receive and be
-                charged for the Promotion Product (Apple Gift Card) in the amount of the applicable instant credit. ACMI
-                is subject to credit approval and credit limit. Variable APRs for Apple Card other than ACMI range from
-                13.99% to 24.99% based on creditworthiness. Rates as of October 1, 2022. If you choose the pay-in-full
-                or one-time-payment option for an ACMI-eligible purchase instead of choosing ACMI as the payment option
-                at checkout, that purchase will be subject to the variable APR assigned to your Apple Card. Taxes and
-                shipping are not included in ACMI transactions and are subject to your standard purchase APR. See the
-                Apple Card Customer Agreement at
-                <span>https://www.goldmansachs.com/terms-and-conditions/Apple-Card-Customer-Agreement.pdf</span> for
-                more information. ACMI is not available for purchases made online at the following special stores: Apple
-                Employee Purchase Plan; participating corporate Employee Purchase Programs; Apple at Work for small
-                businesses; Government, and Veterans and Military Purchase Programs, or on refurbished devices. iPhone
-                activation required on iPhone purchases made at an Apple Store with one of these national carriers:
-                AT&T, Sprint, Verizon, or T-Mobile. Apple Card is issued by Goldman Sachs Bank USA, Salt Lake City
-                Branch. Available for qualifying applicants in the United States. If you reside in the U.S. territories,
-                please call Goldman Sachs at 877-255-5923 with questions about accessing this offer or applying for
-                Apple Card. Except for ACMI, this offer cannot be combined with other Apple promotion(s) or financing
-                offers that are directed to individual end-user customers in the qualifying location. This offer also
-                cannot be combined with the Apple Employee Purchase Plan or business loyalty pricing. Some method of
-                payment types are not accepted under this offer. See checkout for details. Availability of in-store
-                promotion offerings may be limited by Apple Store location closures as a result of COVID-19. Additional
-                restrictions apply. View full terms and conditions of offer here.
-            </p>
-            <br>
-            <p class="text">
-                To access and use all the features of Apple Card, you must add Apple Card to Wallet on an iPhone or iPad
-                with the latest version of iOS or iPadOS. Update to the latest version by going to Settings > General >
-                Software Update. Tap Download and Install.
-            </p>
-            <br>
-            <p class="text">Available for qualifying applicants in the United States.</p>
-            <br>
-            <p class="text">Apple Card is issued by Goldman Sachs Bank USA, Salt Lake City Branch.</p>
-            <br>
-            <p class="text">Learn more about how Apple Card applications are evaluated at support.apple.com/kb/HT209218.</p>
-        </div>
-
-        <hr id="hr1">
-
-        <div class="appledirectory">
-            <div class="biv1">
-                <p>Shop and Learn</p>
-                <ul>
-                    <a href="">Store</a>
-                    <a href="">Mac</a>
-                    <a href="">iPad</a>
-                    <a href="">iPhone</a>
-                    <a href="">Watch</a>
-                    <a href="">AirPods</a>
-                    <a href="">Tv & Home</a>
-                    <a href="">AirTag</a>
-                    <a href="">Accessories</a>
-                    <a href="">Gift Cards</a>
-                </ul>
-            </div>
-            <div class="biv2">
-                <p>Services</p>
-                <ul>
-                    <a href="">Apple Music</a>
-                    <a href="">Apple TV+</a>
-                    <a href="">Apple Fitness+</a>
-                    <a href="">Apple News+</a>
-                    <a href="">Apple Arcade</a>
-                    <a href="">iCloud</a>
-                    <a href="">Apple One</a>
-                    <a href="">Apple Card</a>
-                    <a href="">Apple Books</a>
-                    <a href="">Apple Podcasts</a>
-                    <a href="">App Store</a>
-                </ul>
-                <div class="sectionbiv">
-                    <p>Account</p>
-                    <ul>
-                        <a href="">Manage Your Apple ID</a>
-                        <a href="">Apple Store Account</a>
-                        <a href="">iCloud.com</a>
-                    </ul>
-                </div>
-            </div>
-            <div class="biv3">
-                <p>Apple Store</p>
-                <ul>
-                    <a href="">Find a Store</a>
-                    <a href="">Genius Bar</a>
-                    <a href="">Today at Apple</a>
-                    <a href="">Apple Camp</a>
-                    <a href="">Apple Store App</a>
-                    <a href="">Refurbished and Clearance</a>
-                    <a href="">Financing</a>
-                    <a href="">Apple Trade In</a>
-                    <a href="">Order Status</a>
-                    <a href="">Shopping Help</a>
-                </ul>
-            </div>
-            <div class="biv4">
-                <div class="sectionbiv1">
-                    <p>For Business</p>
-                    <ul>
-                        <a href="">Apple and Business</a>
-                        <a href="">Shop for Business</a>
-                    </ul>
-                </div>
-                <div class="sectionbiv2">
-                    <p>For Education</p>
-                    <ul>
-                        <a href="">Apple and Education</a>
-                        <a href="">Shop for K-12</a>
-                        <a href="">Shop for College</a>
-                    </ul>
-                </div>
-                <div class="sectionbiv3">
-                    <p>For Healthcare</p>
-                    <ul>
-                        <a href="">Apple in Healthcare</a>
-                        <a href="">Health on Apple Watch</a>
-                        <a href="">Heatlh Records on iPhone</a>
-                    </ul>
-                </div>
-                <div class="sectionbiv4">
-                    <p>For Government</p>
-                    <ul>
-                        <a href="">Shop for Government</a>
-                        <a href="">Shop for Veterans and Military</a>
-                    </ul>
-                </div>
-            </div>
-            <div class="biv5">
-                <div class="sectionbiv6">
-                    <p>Apple Values</p>
-                    <ul>
-                        <a href="">Accessibility</a>
-                        <a href="">Education</a>
-                        <a href="">Environment</a>
-                        <a href="">Inclusion and Diversity</a>
-                        <a href="">Privacy</a>
-                        <a href="">Racial Equity and Justice</a>
-                        <a href="">Supplier Responsibility</a>
-                    </ul>
-                </div>
-                <div class="sectionbiv7">
-                    <p>About Apple</p>
-                    <ul>
-                        <a href="">Newsroom</a>
-                        <a href="">Apple Leadership</a>
-                        <a href="">Career Opportunities</a>
-                        <a href="">Investors</a>
-                        <a href="">Ethics & Compliance</a>
-                        <a href="">Events</a>
-                        <a href="">Contact Apple</a>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <footer id="foot">
-            <p>More ways to shop: <a href="">Find an Apple Store</a> or <a href="">other retailer</a> near you. Or
-                call 1-800-MY-APPLE.</p>
-            <hr id="hr2">
-            <div class="divfooter">
-                <p>Copyright © 2022 Apple Inc. All rights reserved.</p>
-                <div class="divfooter2">
-                    <a href="" class="endup">
-                        <p>Privacy Policy</p>
-                    </a>
-                    <a href="" class="endup">
-                        <p>Terms of Use</p>
-                    </a>
-                    <a href="" class="endup">
-                        <p>Sales and Refunds</p>
-                    </a>
-                    <a href="" class="endup">
-                        <p>Legal</p>
-                    </a>
-                    <a href="" class="endup">
-                        <p>Site Map</p>
-                    </a>
-                </div>
-                <p>United States</p>
-            </div>
-        </footer>
-    </div>
+    <script src="dersler.js"></script>
 </body>
-<script src="script.js"></script>
-
 </html>

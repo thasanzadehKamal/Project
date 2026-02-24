@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Container */
+  .container-xl { @apply max-w-[1200px] mx-auto px-4; }
+
+  /* 12-col grid */
+  .grid-12 { @apply grid grid-cols-12 gap-4; }
+
+  /* Common spans */
+  .col-12 { @apply col-span-12; }
+  .col-6  { @apply col-span-12 md:col-span-6; }
+  .col-4  { @apply col-span-12 md:col-span-4; }
+  .col-3  { @apply col-span-12 md:col-span-3; }
+
+  /* Optional: row helpers */
+  .row-gap-sm { @apply gap-2; }
+  .row-gap-md { @apply gap-4; }
+  .row-gap-lg { @apply gap-6; }
+}
