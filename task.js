@@ -328,7 +328,81 @@
 // console.log(others);
 
 
-// 
+//! Object tasklari
+
+// 1.
+// let user = {
+//     name:"Oscar",
+//     gender: "Man",
+// bday:"2009-03-25"
+// setAge: 17
+// getYearsBeforeRetirement(){
+//     const Age = 65 - this.age;
+//     return `${Age} il qalir`;
+// }
+
+// }
+// user.age = 17;
+// delete user.bday;
+// console.log(user);
+
+// let user = {
+//     name: "Maqa",
+//     gender: "Man",
+//     birthday: "08.10.2006",
+//     age: "20",
+//     pnsAge: "65",
+//     getYearsBeforeRetirement: function () {
+//         return this.pnsAge - this.age;
+//     }
+// };
+// delete user.birthday
+// user.age = 30
+
+// console.log(user.getYearsBeforeRetirement());
+
+
+// const client = {
+//     fullName: "Oscar Piastri",
+//     creditLimit: 5000,
+//     balans: -1000,
+//     precentOfMinPayment: 10,
+//     getBalance(){
+//         if (this.balans >= 0){
+//             return `Balans: ${this.balans} AZN`;
+//         }
+//         else{
+//             return `Borcunuz: ${-1 * this.balans} AZN`;
+//         }
+
+//     },
+//     getMinPayment(){
+//         if (this.balans >= 0){
+//             return "Sizin borcunuz yoxdur";
+//         }
+//         else{
+//             const debt = Math.abs(this.balans);
+//             const minPay = (debt * this.precentOfMinPayment) / 100;
+//             return `«Minimum ödənişiniz ${minPay}`;
+//         }
+//     }
+//     withdraw(param){
+
+//     }
+    
+// }
+// console.log(client.getMinPayment());
+
+
+// const item = document.querySelectorAll("li");
+// item.forEach(li => {
+//     li.style.backgroundColor = "black"
+//     li.style.color = "#fff"
+// })
+// console.log(item);
+
+
+
 
 
 

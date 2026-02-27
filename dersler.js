@@ -426,11 +426,11 @@
 
 // 5.
 
-function kamal() {
-    return "hi";
-    function num(){
-        return 11;
+// function kamal() {
+//     return "hi";
+//     function num(){
+//         return 11;
 
-    }
-}
-console.log(kamal());
+//     }
+// }
+// console.log(kamal());

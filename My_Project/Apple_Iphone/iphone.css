@@ -405,3 +405,62 @@ background-size: cover;
 }
 
 
+
+/* Shared subtle effects */
+@keyframes fadeUpLite {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section,
+article,
+[class*="hero"],
+[class*="container"]:not(.container1),
+[class*="card"] {
+  animation: fadeUpLite 0.55s ease-out both;
+}
+
+a {
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #0070c9;
+}
+
+.pages ul a {
+  transition: none;
+}
+
+.pages ul a:hover {
+  color: #0070c9;
+}
+
+img,
+button,
+[class*="card"],
+[class*="box"],
+.accessories,
+.help-box,
+.accs {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+img:hover,
+[class*="card"]:hover,
+[class*="box"]:hover,
+.accessories:hover,
+.help-box:hover,
+.accs:hover {
+  transform: translateY(-3px);
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
