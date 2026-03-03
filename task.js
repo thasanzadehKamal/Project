@@ -151,7 +151,7 @@
 //         if (n % i === 0) {
 //             return false;
 //         }
-        
+
 //     }
 //     return true;
 
@@ -173,7 +173,7 @@
 //! Task 14
 // function isPalindrome(txt) {
 //     return txt === txt.split ("").reverse().join("");
-    
+
 // }
 
 // console.log(isPalindrome("level"));
@@ -182,7 +182,7 @@
 
 
 //! Arr tasklari
- 1.
+1.
 // let arr = ["kamal","john","doe"];
 // arr[1] = "Classfied";
 // console.log(arr);
@@ -217,7 +217,7 @@
 //         console.log(i, "-ci user", salary[i]);
 //        for (let j = start; j < end; j++) {
 //          totalSalary += salary[i][j]
-        
+
 //        }
 //     }
 //     return totalSalary;
@@ -279,7 +279,7 @@
 //     if (employees[i][1] === 'development') {
 //         development.push(employees[i]);
 //     }
-    
+
 // }
 
 // console.log(development);
@@ -292,7 +292,7 @@
 // 11. 
 // let Nums = [1,2,6,9,-1,-5,-2,5,5,1]
 // function Nums() {
-    
+
 // }
 
 
@@ -318,7 +318,7 @@
 // 20.
 //  function sortArray(arr) {
 //     return arr.sortArray((a,b) => a - b);
-    
+
 // }
 // console.log(sortArray([5,2,1,6,8,5,3,4,7,]));
 
@@ -389,7 +389,7 @@
 //     withdraw(param){
 
 //     }
-    
+
 // }
 // console.log(client.getMinPayment());
 
@@ -400,6 +400,40 @@
 //     li.style.color = "#fff"
 // })
 // console.log(item);
+
+// const h1 = document.querySelector("h1");
+// // h1.remove()
+// h1.textContent = "«GeForce 20 Series»";
+
+// const primary = document.querySelectorAll(".primary");
+// primary.forEach(primary => {
+//     console.log(primary.textContent);
+// })
+// primary.forEach(li => {
+//     li.style.color = "#ebebeb"
+// });
+
+
+// const list = document.querySelectorAll("li");
+// list.forEach((list) => {
+//     list.classList.add("item")
+//     if (!list.classList.contains("primary")) {
+//         list.classList.add("secondary")
+//     }
+//     console.log(list);
+// })
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
