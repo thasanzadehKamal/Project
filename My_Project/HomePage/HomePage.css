@@ -20,6 +20,7 @@
 
 body {
   font-family: "SF Pro Text" , "SFPRO";
+  padding-top: 44px;
 
   h1 {
     font-weight: 700;
@@ -43,17 +44,17 @@ nav {
   color: #fff;
   width: 100%;
   height: 44px;
-  position: relative;
-  z-index: 40;
-  transition: background-color 0.28s ease, backdrop-filter 0.28s ease,
-    -webkit-backdrop-filter 0.28s ease, box-shadow 0.28s ease;
-}
-
-nav.nav-sticky {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 40;
+  transition: background-color 0.28s ease, backdrop-filter 0.28s ease,
+    -webkit-backdrop-filter 0.28s ease, box-shadow 0.28s ease,
+    transform 0.35s ease, opacity 0.35s ease;
+}
+
+nav.nav-sticky {
   background-color: rgba(18, 18, 18, 0.68);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
@@ -440,22 +441,23 @@ header {
 }
 
 .tvplusgallery {
-   width:100% ;
-margin-inline: auto;
+  width: 100%;
+  margin-inline: auto;
   overflow: hidden;
   position: relative;
   margin-top: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
   margin-bottom: 30px;
+  background: #000;
 }
 
 .slide {
   display: flex;
   height: 100%;
-  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transition: transform 1.15s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .slides {
@@ -467,31 +469,37 @@ margin-inline: auto;
   width: 100%;
   height: 100vh;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  filter: saturate(1.04) contrast(1.03);
+  transition: transform 0.55s ease, filter 0.55s ease;
   border-radius: 4px;
+}
+.slides img:hover {
+  transform: scale(1.015);
+  filter: saturate(1.08) contrast(1.06);
 }
 
 .dots {
   position: absolute;
-  bottom: 20px;
+  bottom: 18px;
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.4);
+  width: 11px;
+  height: 11px;
+  background: rgba(255, 255, 255, 0.45);
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .dot.active {
   background: #fff;
-  transform: scale(1.3);
+  transform: scale(1.35);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18);
 }
 
 /* About Us Section */

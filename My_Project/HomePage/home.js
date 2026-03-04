@@ -45,3 +45,76 @@
             }
         }, { passive: false });
     }
+
+    const tvGallery = document.querySelector(".tvplusgallery");
+    const tvTrack = tvGallery ? tvGallery.querySelector(".slide") : null;
+    const tvSlides = tvTrack ? Array.from(tvTrack.querySelectorAll(".slides")) : [];
+    const tvDots = tvGallery ? Array.from(tvGallery.querySelectorAll(".dot")) : [];
+
+    if (tvGallery && tvTrack && tvSlides.length > 0) {
+        let activeIndex = 0;
+        const totalSlides = tvSlides.length;
+        const autoDelayMs = 4200;
+        let autoTimer = null;
+
+        function setActiveDot(index) {
+            tvDots.forEach((dot, dotIndex) => {
+                dot.classList.toggle("active", dotIndex === index);
+                dot.setAttribute("aria-selected", String(dotIndex === index));
+            });
+        }
+
+        function goToSlide(index, withTransition = true) {
+            activeIndex = (index + totalSlides) % totalSlides;
+            tvTrack.style.transition = withTransition
+                ? "transform 1.15s cubic-bezier(0.22, 0.61, 0.36, 1)"
+                : "none";
+            tvTrack.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
+            setActiveDot(activeIndex);
+        }
+
+        function nextSlide() {
+            goToSlide(activeIndex + 1);
+        }
+
+        function stopAutoplay() {
+            if (!autoTimer) return;
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+
+        function startAutoplay() {
+            stopAutoplay();
+            autoTimer = setInterval(nextSlide, autoDelayMs);
+        }
+
+        tvDots.forEach((dot, dotIndex) => {
+            dot.setAttribute("role", "button");
+            dot.setAttribute("tabindex", "0");
+            dot.setAttribute("aria-label", `Go to slide ${dotIndex + 1}`);
+
+            dot.addEventListener("click", () => {
+                goToSlide(dotIndex);
+                startAutoplay();
+            });
+
+            dot.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    goToSlide(dotIndex);
+                    startAutoplay();
+                }
+            });
+        });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopAutoplay();
+            } else {
+                startAutoplay();
+            }
+        });
+
+        goToSlide(0, false);
+        startAutoplay();
+    }
