@@ -13,6 +13,10 @@
 html,
 body {
   overflow-x: hidden;
+
+}
+span,p{
+  font-family: "SF Pro Text", sans-serif;
 }
 
 section {
@@ -26,7 +30,7 @@ section {
 }
 
 body {
-  font-family: "SF Pro Text" , "SFPRO";
+  font-family: "SF Pro Text", sans-serif;
   padding-top: 44px;
   h1 {
     font-weight: 700;
@@ -927,4 +931,57 @@ img:hover,
 
 button:hover {
   transform: translateY(-1px);
+}
+
+@media (max-width: 1024px) {
+  .pages ul {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline: 16px;
+  }
+
+  .hero1,
+  .store,
+  .accessoriess {
+    flex-wrap: wrap;
+    padding-inline: 16px;
+  }
+
+  .cards {
+    justify-content: center;
+    margin-left: 0;
+    padding-inline: 16px;
+  }
+
+  .hero2 h1,
+  .hero6 h1,
+  #h1,
+  .store-left h1 {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .hero2-1,
+  .hero2-2,
+  .hero2-3,
+  .hero2-4,
+  .hero2-5,
+  .hero2-6,
+  .hero3-1,
+  .hero3-2,
+  .hero3-3,
+  .hero3-4,
+  .hero4-1,
+  .hero4-2,
+  .hero4-3,
+  .hero4-4,
+  .hero5-1,
+  .hero5-2,
+  .hero5-3,
+  .hero5-4,
+  .hero6-1,
+  .hero6-2 {
+    width: min(100%, 400px);
+  }
 }

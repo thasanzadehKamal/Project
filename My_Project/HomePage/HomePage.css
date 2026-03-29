@@ -18,8 +18,14 @@
   box-sizing: border-box;
 }
 
+html,
 body {
-  font-family: "SF Pro Text" , "SFPRO";
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "SF Pro Text", sans-serif;
   padding-top: 44px;
 
   h1 {
@@ -117,10 +123,10 @@ header {
   width: 38%;
   margin-inline: auto;
   text-align: center;
-  margin-top: 60px;
   margin-bottom: 50px;
   background-color: black;
 }
+
 
 
 
@@ -198,7 +204,7 @@ header {
   background-image: url(../pngs/08cf274196bc14d4bf6fe3c5b3feff8f4ebdf9c6.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center calc(50% + var(--container3-shift, 0px));
 
   .intro3 {
     display: flex;
@@ -231,7 +237,7 @@ header {
 
 /* Apple Photo Grid */
 #first1 {
-  margin-inline: 10px;
+  margin-inline: 0;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(12, 1fr);
@@ -711,4 +717,33 @@ img:hover,
 
 button:hover {
   transform: translateY(-1px);
+}
+
+@media (max-width: 1024px) {
+  .pages ul {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline: 16px;
+  }
+
+  header {
+    width: min(100%, 680px);
+    padding-inline: 16px;
+  }
+
+  .streamnow {
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .divfooter1,
+  .divfooter2 {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-inline: 16px;
+  }
 }

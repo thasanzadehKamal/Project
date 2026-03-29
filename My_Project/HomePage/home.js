@@ -15,6 +15,39 @@
     handleNavScroll();
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const container3 = document.querySelector(".container3");
+
+    function updateContainer3Overlap() {
+        if (!container3) return;
+
+        if (prefersReducedMotion) {
+            container3.style.setProperty("--container3-shift", "0px");
+            return;
+        }
+
+        const rect = container3.getBoundingClientRect();
+        const viewport = window.innerHeight;
+        const totalTravel = viewport + rect.height;
+        const progressRaw = (viewport - rect.top) / totalTravel;
+        const progress = Math.max(0, Math.min(progressRaw, 1));
+        const shift = -40 * progress;
+
+        container3.style.setProperty("--container3-shift", `${shift.toFixed(2)}px`);
+    }
+
+    let overlapRaf = null;
+    function onOverlapScroll() {
+        if (overlapRaf) return;
+        overlapRaf = requestAnimationFrame(() => {
+            updateContainer3Overlap();
+            overlapRaf = null;
+        });
+    }
+
+    window.addEventListener("scroll", onOverlapScroll, { passive: true });
+    window.addEventListener("resize", onOverlapScroll);
+    updateContainer3Overlap();
+
     if (!prefersReducedMotion) {
         let currentScroll = window.scrollY;
         let targetScroll = window.scrollY;
